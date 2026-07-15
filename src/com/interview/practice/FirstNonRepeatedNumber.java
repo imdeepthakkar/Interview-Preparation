@@ -12,10 +12,7 @@ public class FirstNonRepeatedNumber {
         Map<Integer, Integer> map = new LinkedHashMap<>();
         for(int num:arr){
             map.put(num, map.getOrDefault(num, 0)+1);
-
         }
-
-
         for(Map.Entry<Integer, Integer> e: map.entrySet()){
             if(e.getValue()==1){
                 firstNonRepeat = e.getKey();
