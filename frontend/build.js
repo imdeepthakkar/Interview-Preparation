@@ -41,8 +41,10 @@ files.forEach(file => {
         // For simplicity, we just extract the chunk between the comment block and the next part or end of file.
         // We look for the first public/private method.
         let codeChunk = block.substring(block.indexOf('/*')).trim();
-        // Remove trailing class braces
-        codeChunk = codeChunk.replace(/^[\s\S]*?(public static[\s\S]*?^    \})/m, '$1');
+        let methodMatch = codeChunk.match(/(public\s+static[\s\S]*?^    \})/m);
+        if (methodMatch) {
+            codeChunk = methodMatch[1];
+        }
         
         cls.parts.push({
             subtitle: subtitle,

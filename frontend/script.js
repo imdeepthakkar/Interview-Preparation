@@ -287,12 +287,6 @@ public class BadgeSecuritySequence {
             }
         }
         return suspicious;
-    }
-
-    private static boolean isWithinOneHour(int time1, int time2) {
-        int totalMins1 = (time1 / 100 * 60) + (time1 % 100);
-        int totalMins2 = (time2 / 100 * 60) + (time2 % 100);
-        return (totalMins2 - totalMins1) <= 60;
     }`
             },
             {
@@ -330,80 +324,7 @@ public class BadgeSecuritySequence {
             }
         }
         return roomPaths;
-    }
-
-    public static void main(String[] args) {
-
-        // ---------------------------------------------------------
-        // PART 1: Mismatched Badges (Enter without Exit / Exit without Enter)
-        // ---------------------------------------------------------
-        String[][] part1Logs = {
-                {"Martha", "exit"},    // Exits without entering
-                {"Paul", "enter"},     // Enters
-                {"Martha", "enter"},   // Enters normally
-                {"Martha", "exit"},    // Exits normally
-                {"Jennifer", "enter"}, // Enters but never exits
-                {"Paul", "exit"},      // Paul exits
-                {"John", "exit"}       // Exits without entering
-        };
-
-        System.out.println("--- PART 1: Mismatched Badges ---");
-        findMismatchedBadges(part1Logs);
-        // Expected Output:
-        // Exited without entering: [Martha, John]
-        // Entered without exiting: [Jennifer]
-
-
-        // ---------------------------------------------------------
-        // PART 2: Suspicious Access (3+ badge-ins within 1 hour)
-        // Input Format: [Name, Time in HHMM]
-        // ---------------------------------------------------------
-        String[][] part2Logs = {
-                {"Paul", "1355"},
-                {"Eli", "1400"},
-                {"Paul", "1405"},
-                {"Paul", "1430"}, // Paul's 3rd badge in 35 minutes (1355 to 1430) -> Suspicious
-                {"Eli", "1435"},
-                {"Eli", "1500"},  // Eli's 3rd badge in exactly 60 minutes (1400 to 1500) -> Suspicious
-                {"Paul", "1630"},
-                {"John", "0830"},
-                {"John", "0945"}  // John is safe (only 2 badges)
-        };
-
-        System.out.println("\\n--- PART 2: Suspicious Access ---");
-        Map<String, List<Integer>> suspicious = findSuspiciousAccess(part2Logs);
-        for (Map.Entry<String, List<Integer>> entry : suspicious.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-            // Expected Output:
-            // Paul: [1355, 1405, 1430]
-            // Eli: [1400, 1435, 1500]
-
-
-        // ---------------------------------------------------------
-        // PART 3: Room Paths (Chronological sequence of rooms entered)
-        // Input Format: [Name, Action, Room, Time]
-        // Note: Intentionally scrambled to test chronological sorting.
-        // ---------------------------------------------------------
-        String[][] part3Logs = {
-                {"Paul", "enter", "Engineering", "1410"},
-                {"Eli", "enter", "Lobby", "1400"},
-                {"Paul", "enter", "Kitchen", "1355"},     // Happened before Engineering
-                {"Paul", "exit", "Kitchen", "1405"},
-                {"Eli", "exit", "Lobby", "1430"},
-                {"Eli", "enter", "ServerRoom", "1435"}
-        };
-
-        System.out.println("\\n--- PART 3: Employee Room Paths ---");
-        Map<String, List<String>> roomPaths = getEmployeeRoomPaths(part3Logs);
-        for (Map.Entry<String, List<String>> entry : roomPaths.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        // Expected Output:
-        // Paul: [Kitchen, Engineering]  <-- Kitchen must come first because of the time!
-        // Eli: [Lobby, ServerRoom]
-    }
-}`
+    }`
             }
         ]
     },
@@ -666,57 +587,7 @@ public class BasicCalculatorSequence {
         }
 
         return result + (sign * currentNum);
-    }
-
-    public static void main(String[] args) {
-
-        // ---------------------------------------------------------
-        // PART 1: Basic Math (No parentheses, only + and -)
-        // ---------------------------------------------------------
-        System.out.println("--- PART 1: Basic Expression ---");
-
-        String expr1 = "2+3-1";
-        System.out.println(expr1 + " = " + calculateBasic(expr1));
-        // Expected Output: 4
-
-        String expr2 = "10 - 2 - 3"; // Tests multi-digit numbers and spaces
-        System.out.println(expr2 + " = " + calculateBasic(expr2));
-        // Expected Output: 5
-
-        String expr3 = "-5 + 8"; // Tests leading negative sign
-        System.out.println(expr3 + " = " + calculateBasic(expr3));
-        // Expected Output: 3
-
-
-        // ---------------------------------------------------------
-        // PART 2: With Parentheses
-        // ---------------------------------------------------------
-        System.out.println("\\n--- PART 2: With Parentheses ---");
-
-        String expr4 = "2+(3-1)";
-        System.out.println(expr4 + " = " + calculateWithParentheses(expr4));
-        // Expected Output: 4
-
-        String expr5 = "12 - (8 - 4) + 3";
-        System.out.println(expr5 + " = " + calculateWithParentheses(expr5));
-        // Expected Output: 11
-
-
-        // ---------------------------------------------------------
-        // PART 3: With Variables
-        // ---------------------------------------------------------
-        System.out.println("\\n--- PART 3: With Variables ---");
-
-        Map<String, Integer> variables = new HashMap<>();
-        variables.put("a", 10);
-        variables.put("b", 2);
-        variables.put("c", 5);
-
-        String expr6 = "a + (a - b) - c";
-        System.out.println(expr6 + " = " + calculateWithVariables(expr6, variables));
-        // Expected Output: 13 (10 + (10 - 2) - 5)
-    }
-}`
+    }`
             }
         ]
     },
@@ -877,8 +748,7 @@ public class CalendarSequence {
             freeBlocks.add(new int[]{currentPointer, dayEnd});
         }
         return freeBlocks;
-    }
-}`
+    }`
             }
         ]
     },
@@ -1024,8 +894,7 @@ public class ContinuousHistorySequence {
             }
         }
         return false;
-    }
-}`
+    }`
             }
         ]
     },
@@ -1301,71 +1170,7 @@ public class DomainClickContinousHistory {
         }
 
         return false;
-    }
-
-    public static void main(String[] args) {
-        // ---------------------------------------------------------
-        // PART 1 & 2: Raw Click Logs
-        // ---------------------------------------------------------
-        String[][] logs = {
-                {"user1", "google.com"},
-                {"user1", "yahoo.com"},
-                {"user1", "amazon.com"},
-                {"user1", "ebay.com"},
-                {"user2", "bing.com"},
-                {"user2", "yahoo.com"},
-                {"user2", "amazon.com"},
-                {"user2", "ebay.com"},
-                {"user2", "netflix.com"},
-                {"user3", "google.com"},
-                {"user3", "yahoo.com"}
-        };
-
-        System.out.println("--- PART 1: Build User Histories ---");
-        Map<String, List<String>> histories = buildUserHistories(logs);
-
-        for (Map.Entry<String, List<String>> entry : histories.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        // Expected Output:
-        // user1: [google.com, yahoo.com, amazon.com, ebay.com]
-        // user2: [bing.com, yahoo.com, amazon.com, ebay.com, netflix.com]
-        // user3: [google.com, yahoo.com]
-
-
-        System.out.println("\\n--- PART 2: Longest Common Continuous History ---");
-        List<String> u1 = histories.get("user1");
-        List<String> u2 = histories.get("user2");
-
-        List<String> common = findLongestCommon(u1, u2);
-        System.out.println("Longest shared between user1 & user2: " + common);
-        // Expected Output:
-        // Longest shared between user1 & user2: [yahoo.com, amazon.com, ebay.com]
-
-
-        // ---------------------------------------------------------
-        // PART 3: One-Step Checkout paths
-        // ---------------------------------------------------------
-        System.out.println("\\n--- PART 3: One-Step Checkout ---");
-
-        // Valid: Exactly one step ("catalog") between "home" and "checkout"
-        List<String> path1 = Arrays.asList("home", "catalog", "checkout", "logout");
-
-        // Invalid: Zero steps between them
-        List<String> path2 = Arrays.asList("home", "checkout");
-
-        // Invalid: Two steps between them ("catalog" and "cart")
-        List<String> path3 = Arrays.asList("home", "catalog", "cart", "checkout");
-
-        System.out.println("Path 1 (1 step)  : " + hasOneStepCheckout(path1, "home", "checkout"));
-        System.out.println("Path 2 (0 steps) : " + hasOneStepCheckout(path2, "home", "checkout"));
-        System.out.println("Path 3 (2 steps) : " + hasOneStepCheckout(path3, "home", "checkout"));
-        // Expected Output:
-        // Path 1 (1 step)  : true
-        // Path 2 (0 steps) : false
-        // Path 3 (2 steps) : false
-    }
-}`
+    }`
             }
         ]
     },
@@ -1556,17 +1361,6 @@ public class GridSequence {
         dfs(grid, startRow, startCol, visited, reachable);
 
         return reachable;
-    }
-
-    private static void dfs(int[][] grid, int row, int col, boolean[][] visited, List<int[]> reachable) {
-        if (!isValidMove(grid, row, col, visited)) return;
-
-        visited[row][col] = true;
-        reachable.add(new int[]{row, col});
-
-        for (int[] dir : DIRECTIONS) {
-            dfs(grid, row + dir[0], col + dir[1], visited, reachable);
-        }
     }`
             },
             {
@@ -1655,16 +1449,7 @@ public class GridSequence {
             }
         }
         return -1;
-    }
-
-    // --- Helper for Part 1 & Part 2 ---
-    private static boolean isValidMove(int[][] grid, int row, int col, boolean[][] visited) {
-        return row >= 0 && row < grid.length &&
-                col >= 0 && col < grid[0].length &&
-                grid[row][col] == 0 &&
-                !visited[row][col];
-    }
-}`
+    }`
             }
         ]
     },
@@ -1896,27 +1681,7 @@ public class MatrixShapesSequence {
             }
         }
         return boxes;
-    }
-
-    private static final int[][] DIRS = {{-1,0}, {1,0}, {0,-1}, {0,1}};
-
-    private static void exploreShapeDFS(int[][] grid, int r, int c, boolean[][] visited, int[] bounds) {
-        visited[r][c] = true;
-        bounds[0] = Math.min(bounds[0], r); // minR
-        bounds[1] = Math.min(bounds[1], c); // minC
-        bounds[2] = Math.max(bounds[2], r); // maxR
-        bounds[3] = Math.max(bounds[3], c); // maxC
-
-        for (int[] dir : DIRS) {
-            int nr = r + dir[0];
-            int nc = c + dir[1];
-            if (nr >= 0 && nr < grid.length && nc >= 0 && nc < grid[0].length
-                    && grid[nr][nc] == 0 && !visited[nr][nc]) {
-                exploreShapeDFS(grid, nr, nc, visited, bounds);
-            }
-        }
-    }
-}`
+    }`
             }
         ]
     },
@@ -2092,28 +1857,7 @@ public class ParentChildSequence {
             queue.addAll(parents);
         }
         return earliest;
-    }
-
-    // --- Helpers used by Part 2 and Part 3 ---
-    private static Map<Integer, List<Integer>> buildParentMap(int[][] pairs) {
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        for (int[] pair : pairs) {
-            map.putIfAbsent(pair[1], new ArrayList<>());
-            map.get(pair[1]).add(pair[0]);
-        }
-        return map;
-    }
-
-    private static Set<Integer> getAncestors(Map<Integer, List<Integer>> map, int node) {
-        Set<Integer> ancestors = new HashSet<>();
-        List<Integer> parents = map.getOrDefault(node, new ArrayList<>());
-        for (int p : parents) {
-            ancestors.add(p);
-            ancestors.addAll(getAncestors(map, p));
-        }
-        return ancestors;
-    }
-}`
+    }`
             }
         ]
     },
@@ -2337,20 +2081,7 @@ public class StudentCoursesSequence {
             }
         }
         return true;
-    }
-
-    private static boolean hasCycle(Map<String, List<String>> graph, String node, Map<String, Integer> state) {
-        state.put(node, 1);
-
-        for (String neighbor : graph.getOrDefault(node, new ArrayList<>())) {
-            if (state.getOrDefault(neighbor, 0) == 1) return true;
-            if (state.getOrDefault(neighbor, 0) == 0 && hasCycle(graph, neighbor, state)) return true;
-        }
-
-        state.put(node, 2);
-        return false;
-    }
-}`
+    }`
             }
         ]
     },
@@ -2737,86 +2468,7 @@ public class TollSystemSequence {
             }
         }
         return speeders;
-    }
-
-    public static Map<String, Integer> getStrictCompletedJourneys(String[] logs) {
-        Map<String, Integer> journeyCounts = new HashMap<>();
-
-        // Tracks cars that have officially entered but not yet exited
-        Set<String> onHighway = new HashSet<>();
-
-        if (logs == null || logs.length == 0) return journeyCounts;
-
-        for (String log : logs) {
-            String[] parts = log.split(" ");
-            String plate = parts[1];
-            String action = parts[3];
-
-            if (action.equals("ENTRY")) {
-                // Mark the car as currently on a valid journey
-                onHighway.add(plate);
-            }
-            else if (action.equals("EXIT")) {
-                // Only count as complete IF we actually saw them enter
-                if (onHighway.contains(plate)) {
-                    journeyCounts.put(plate, journeyCounts.getOrDefault(plate, 0) + 1);
-                    // Remove them from the highway so we don't double-count future exits
-                    onHighway.remove(plate);
-                }
-            }
-        }
-
-        return journeyCounts;
-    }
-
-    public static void main(String[] args) {
-        // Unsorted sample logs demonstrating various scenarios
-        String[] logs = {
-                // GHI333: Journey 2 (Safe driver, ~90 km/h)
-                "4000.000 GHI333 210E ENTRY",
-                "4400.000 GHI333 211E MAINROAD",
-                "4800.000 GHI333 212E EXIT",
-
-                // ABC111: Journey 1 (Extreme speeder, 200s for 10km = 180 km/h)
-                "100.000 ABC111 210E ENTRY",
-                "300.000 ABC111 211E MAINROAD",
-                "800.000 ABC111 212E EXIT",
-
-                // DEF222: Journey 1 (Moderate speeder, 290s for 10km = ~124 km/h)
-                // Two violations in the same journey will trigger the Part 3 rule
-                "1000.000 DEF222 210E ENTRY",
-                "1290.000 DEF222 211E MAINROAD",
-                "1580.000 DEF222 212E EXIT",
-
-                // GHI333: Journey 1 (Safe driver, ~90 km/h)
-                "2000.000 GHI333 210E ENTRY",
-                "2400.000 GHI333 211E EXIT"
-        };
-
-        System.out.println("--- PART 1: Count Journeys ---");
-        Map<String, Integer> journeys = countJourneys(logs);
-        for (Map.Entry<String, Integer> entry : journeys.entrySet()) {
-            System.out.println("Plate " + entry.getKey() + " made " + entry.getValue() + " journey(s).");
-        }
-        // Expected: GHI333=2, ABC111=1, DEF222=1
-
-        System.out.println("\\n--- PART 2: Extreme Speeders (>= 130 km/h in any single segment) ---");
-        Set<String> extremeSpeeders = catchExtremeSpeeders(logs);
-        System.out.println("Extreme Speeders: " + extremeSpeeders);
-        // Expected: [ABC111] (DEF222 was only going ~124 km/h, so they escape this rule)
-
-        System.out.println("\\n--- PART 3: All Speeders (Includes >= 120 km/h in two segments) ---");
-        Set<String> allSpeeders = catchAllSpeeders(logs);
-        System.out.println("All Speeders: " + allSpeeders);
-        // Expected: [ABC111, DEF222] (DEF222 gets caught here for two 124 km/h segments)
-
-        System.out.println("\\n--- PART 4: Count Journeys -including entry and exit ---");
-        Map<String, Integer> strictJourneys = getStrictCompletedJourneys(logs);
-        for (Map.Entry<String, Integer> entry : journeys.entrySet()) {
-            System.out.println("Plate " + entry.getKey() + " made " + entry.getValue() + " journey(s).");
-        }
-    }
-}`
+    }`
             }
         ]
     },
@@ -3025,15 +2677,7 @@ public class VotingSystemSequence {
         });
 
         return results.isEmpty() ? "" : results.get(0).getKey();
-    }
-
-    private static void updateStats(Map<String, int[]> stats, String candidate, int points, int rankIndex) {
-        stats.putIfAbsent(candidate, new int[4]);
-        int[] data = stats.get(candidate);
-        data[0] += points;
-        data[rankIndex] += 1;
-    }
-}`
+    }`
             }
         ]
     },
@@ -3202,8 +2846,7 @@ public class WordGameSequence {
             }
         }
         return true;
-    }
-}`
+    }`
             }
         ]
     }
