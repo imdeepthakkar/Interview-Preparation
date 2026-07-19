@@ -70,8 +70,7 @@ classesData.forEach((cls, i) => {
 newArrayStr += '];\n';
 
 // Replace in script.js
-let regex = /const javaClasses = \[[\s\S]*?\];\s*\n/m;
-let newScript = scriptContent.replace(regex, newArrayStr + '\n');
+let newScript = scriptContent.replace(/const javaClasses = \[[\s\S]*?\];\s*\/\/\s*App State/m, newArrayStr + '\n// App State');
 fs.writeFileSync(scriptPath, newScript);
 
 console.log("Successfully rebuilt script.js from Java comments!");
