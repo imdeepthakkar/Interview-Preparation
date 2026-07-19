@@ -36,6 +36,178 @@ function generateHtml(title, markdownText) {
         </header>
         ${htmlContent}
     </div>
+    
+    ${title === '150 Rapid-Fire Q&A' ? `
+    <style>
+        .question-block {
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 2px dashed transparent;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .question-block:hover {
+            border-color: var(--blue-line);
+        }
+        .question-block.done {
+            opacity: 0.5;
+            border-color: #2ecc71;
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        .mark-done-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: 2px solid var(--ink);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            padding: 5px 12px;
+            color: var(--ink);
+            transition: 0.2s;
+        }
+        .question-block.done .mark-done-btn {
+            background: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            padding: 10px 15px;
+            border: 2px solid var(--ink);
+            background: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .page-btn:hover { background: #f0f0f0; }
+        .page-btn.active {
+            background: var(--highlight);
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.container');
+        const elements = Array.from(container.children);
+        
+        let currentBlock = null;
+        let allBlocks = [];
+        
+        elements.forEach(el => {
+            if (el.tagName === 'HEADER' || el.tagName === 'H1') return;
+            
+            if (el.tagName === 'H2') {
+                currentBlock = document.createElement('div');
+                currentBlock.className = 'category-header';
+                currentBlock.appendChild(el.cloneNode(true));
+                allBlocks.push(currentBlock);
+                el.style.display = 'none';
+                return;
+            }
+            
+            if (el.tagName === 'P' && el.innerHTML.match(/<strong>Q\\d+/i)) {
+                currentBlock = document.createElement('div');
+                currentBlock.className = 'question-block';
+                
+                const btn = document.createElement('button');
+                btn.className = 'mark-done-btn';
+                btn.innerText = 'Mark as Done';
+                
+                const match = el.innerText.match(/Q(\\d+)/i);
+                if (match) {
+                    const qId = 'rapid_fire_' + match[1];
+                    if (localStorage.getItem(qId) === 'true') {
+                        currentBlock.classList.add('done');
+                        btn.innerText = '✓ Done';
+                    }
+                    
+                    btn.onclick = () => {
+                        const isDone = currentBlock.classList.toggle('done');
+                        localStorage.setItem(qId, isDone);
+                        btn.innerText = isDone ? '✓ Done' : 'Mark as Done';
+                    };
+                }
+                
+                currentBlock.appendChild(btn);
+                currentBlock.appendChild(el.cloneNode(true));
+                allBlocks.push(currentBlock);
+                el.style.display = 'none';
+            } else if (currentBlock && currentBlock.className === 'question-block') {
+                currentBlock.appendChild(el.cloneNode(true));
+                el.style.display = 'none';
+            }
+        });
+        
+        allBlocks.forEach(block => container.appendChild(block));
+        
+        const QUESTIONS_PER_PAGE = 15;
+        const questionBlocks = allBlocks.filter(b => b.className === 'question-block');
+        const totalPages = Math.ceil(questionBlocks.length / QUESTIONS_PER_PAGE);
+        let currentPage = 1;
+        
+        const paginationContainer = document.createElement('div');
+        paginationContainer.className = 'pagination';
+        container.appendChild(paginationContainer);
+        
+        function renderPage(page) {
+            currentPage = page;
+            allBlocks.forEach(b => b.classList.add('hidden'));
+            
+            const startIdx = (page - 1) * QUESTIONS_PER_PAGE;
+            const endIdx = startIdx + QUESTIONS_PER_PAGE;
+            
+            const pageQuestions = questionBlocks.slice(startIdx, endIdx);
+            pageQuestions.forEach(q => q.classList.remove('hidden'));
+            
+            let visibleH2s = new Set();
+            pageQuestions.forEach(q => {
+                const idx = allBlocks.indexOf(q);
+                for(let i = idx - 1; i >= 0; i--) {
+                    if(allBlocks[i].className === 'category-header') {
+                        visibleH2s.add(allBlocks[i]);
+                        break;
+                    }
+                }
+            });
+            visibleH2s.forEach(h2 => h2.classList.remove('hidden'));
+            
+            renderPaginationButtons();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function renderPaginationButtons() {
+            paginationContainer.innerHTML = '';
+            for(let i=1; i<=totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+                btn.innerText = i;
+                btn.onclick = () => renderPage(i);
+                paginationContainer.appendChild(btn);
+            }
+        }
+        
+        if (questionBlocks.length > 0) {
+            renderPage(1);
+        }
+    });
+    </script>
+    ` : ''}
 </body>
 </html>`;
 }
