@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Caveat:wght@400;700&display=swap');
+
+:root {
+    --ink: #2c3e50;
+    --paper: #f9f5e8;
+    --paper-card: #fffdf5;
+    --red-line: rgba(255, 100, 100, 0.4);
+    --blue-line: rgba(100, 150, 255, 0.2);
+    --highlight: rgba(255, 235, 59, 0.5);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background-color: var(--paper);
+    background-image: linear-gradient(var(--blue-line) 1px, transparent 1px);
+    background-size: 100% 32px;
+    font-family: 'Kalam', cursive;
+    color: var(--ink);
+    margin: 0; padding: 0;
+    line-height: 32px; /* Match background lines */
+    font-size: 18px;
+}
+
+.margin-line {
+    position: fixed;
+    top: 0; bottom: 0; left: 80px;
+    width: 2px;
+    background: var(--red-line);
+    border-right: 1px solid var(--red-line);
+    z-index: -1;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2rem 2rem 120px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header { text-align: center; margin-bottom: 1rem; }
+h1 { 
+    font-family: 'Caveat', cursive; 
+    font-size: 4rem; 
+    line-height: 1.2;
+    margin: 0; 
+    font-weight: 700; 
+    color: #c0392b;
+    transform: rotate(-1deg); 
+}
+header p { font-size: 1.2rem; opacity: 0.8; margin-top: 5px; }
+
+main { display: flex; gap: 2rem; flex: 1; align-items: flex-start; }
+
+.hand-drawn {
+    border: 2px solid var(--ink);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    background: var(--paper-card);
+    box-shadow: 4px 6px 0px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+}
+
+.sidebar { 
+    width: 350px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+    position: sticky; top: 2rem; height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+.content-panel { flex: 1; padding: 2rem; overflow: visible; }
+
+.hand-input {
+    width: 100%; padding: 0.5rem 1rem;
+    font-family: 'Kalam', cursive; font-size: 1.2rem;
+    background: transparent; border: 0; border-bottom: 2px dashed var(--ink);
+    outline: none; color: var(--ink);
+}
+
+.hand-input:focus {
+    border-bottom: 2px solid #e74c3c;
+}
+
+.category-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.filter-btn {
+    font-family: 'Caveat', cursive; font-size: 1.3rem; font-weight: bold;
+    background: transparent; border: 2px solid var(--ink); border-radius: 4px;
+    cursor: pointer; padding: 0 10px; transform: rotate(1deg); transition: 0.2s;
+    border-radius: 10px 20px 10px 20px/20px 10px 20px 10px;
+}
+.filter-btn.active, .filter-btn:hover { background: var(--ink); color: var(--paper); transform: rotate(-2deg); }
+
+.class-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding-right: 10px; }
+.class-card {
+    padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px dotted var(--blue-line);
+    transition: 0.2s; line-height: 1.4;
+}
+.class-card:hover { transform: translateX(5px); color: #e74c3c; }
+.class-card.active { font-weight: 700; background: var(--highlight); transform: rotate(-1deg); }
+
+.state-view { display: none; }
+.state-view.active { display: block; animation: fadeIn 0.4s; }
+
+.tabs { display: flex; gap: 2rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--ink); padding-bottom: 10px;}
+.tab-btn {
+    font-family: 'Caveat', cursive; font-size: 1.8rem; font-weight: bold;
+    background: transparent; border: none; cursor: pointer; opacity: 0.4; transition: 0.2s; color: var(--ink);
+}
+.tab-btn:hover { opacity: 0.8; }
+.tab-btn.active { opacity: 1; color: #c0392b; transform: scale(1.1) rotate(-2deg); border-bottom: 3px solid #c0392b; }
+
+.highlight { background: var(--highlight); display: inline-block; padding: 0 10px; transform: rotate(-1deg); font-family: 'Caveat', cursive; font-size: 2.2rem; margin-bottom: 10px; color: #2c3e50;}
+.analogy-text { font-size: 1.3rem; margin-bottom: 1rem; }
+
+.trick-card { padding: 1.5rem; margin-bottom: 1.5rem; transform: rotate(0.5deg); background: #fdfaf0; }
+.trick-card h4 { margin: 0 0 10px 0; font-family: 'Caveat', cursive; font-size: 2rem; color: #d35400; line-height: 1;}
+
+.complexity { display: flex; gap: 3rem; margin-bottom: 1.5rem; font-size: 1.4rem; }
+
+.code-snippet { background: rgba(255,255,255,0.7); padding: 1rem; overflow-x: hidden; transform: rotate(-0.5deg); border: 2px dashed #34495e; border-radius: 10px; }
+pre { margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+code { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: #2980b9; line-height: 1.5; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.3); border-radius: 10px; }
+
+/* Interactive Additions */
+.hand-btn {
+    font-family: 'Kalam', cursive;
+    background: #fffdf5;
+    border: 2px solid var(--ink);
+    border-radius: 10px 20px 10px 20px/20px 10px 20px 10px;
+    cursor: pointer;
+    padding: 2px 10px;
+    font-size: 1.1rem;
+    transition: 0.2s;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    font-weight: bold;
+}
+.hand-btn:hover { background: var(--highlight); transform: rotate(-2deg); }
+
+.mastered-toggle { 
+    cursor: pointer; padding: 5px 15px; font-size: 1.3rem; 
+    user-select: none; transition: 0.2s;
+    display: inline-block;
+    border-radius: 15px 255px 15px 255px/255px 15px 255px 15px;
+    border: 2px solid var(--ink);
+    box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+}
+.mastered-toggle:hover { background: #d5f5e3 !important; transform: rotate(0deg) !important; }
+.mastered-toggle input { display: none; }
+.mastered-toggle.is-mastered { background: #2ecc71 !important; color: white; border-color: #27ae60; }
+
+.class-card.mastered { 
+    opacity: 0.6; 
+    text-decoration: line-through; 
+    text-decoration-color: #e74c3c;
+    text-decoration-thickness: 2px;
+}
+.class-card.mastered::after { 
+    content: ' ✅'; 
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+/* HighlightJS custom override for transparent background */
+.hljs { background: transparent !important; padding: 0 !important; }
