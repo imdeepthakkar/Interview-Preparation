@@ -42,16 +42,16 @@ public class BadgeSecuritySequence {
      * Input format: [Name, Time]
      * Time: O(N log N) per user due to sorting times. Space: O(N)
      */
-            public static Map<String, List<Integer>> findSuspiciousAccess(String[][] records) {
+    public static Map<String, List<Integer>> findSuspiciousAccess(String[][] records) {
         Map<String, List<Integer>> userTimes = new HashMap<>();
         Map<String, List<Integer>> suspicious = new HashMap<>();
 
         //create a map with name as key and list of times
         /*
-        {
-             "Paul" -> [1355, 1405],
-             "Eli"  -> [1400]
-        }
+            {
+                 "Paul" -> [1355, 1405],
+                 "Eli"  -> [1400]
+            }
         */
         for (String[] record : records) {
             String name = record[0];
