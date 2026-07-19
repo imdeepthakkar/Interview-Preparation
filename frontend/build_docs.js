@@ -198,7 +198,7 @@ function generateHtml(title, markdownText) {
                 btn.className = 'mark-done-btn';
                 btn.innerText = 'Mark as Done';
                 
-                const match = el.innerText.match(/Q(\\d+)/i);
+                const match = el.textContent.match(/Q(\\d+)/i);
                 if (match) {
                     const qId = 'rapid_fire_' + match[1];
                     if (localStorage.getItem(qId) === 'true') {
@@ -217,7 +217,7 @@ function generateHtml(title, markdownText) {
                 currentBlock.appendChild(el.cloneNode(true));
                 allBlocks.push(currentBlock);
                 el.style.display = 'none';
-            } else if (currentBlock && currentBlock.className === 'question-block') {
+            } else if (currentBlock && currentBlock.classList.contains('question-block')) {
                 currentBlock.appendChild(el.cloneNode(true));
                 el.style.display = 'none';
             }
