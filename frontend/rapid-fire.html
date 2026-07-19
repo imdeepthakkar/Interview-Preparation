@@ -770,20 +770,22 @@
                 
                 const btn = document.createElement('button');
                 btn.className = 'mark-done-btn';
-                btn.innerText = 'Mark as Done';
+                btn.textContent = 'Mark as Done';
                 
                 const match = el.textContent.match(/Q(\d+)/i);
                 if (match) {
                     const qId = 'rapid_fire_' + match[1];
+                    const blockToToggle = currentBlock; // FIX: local reference for closure
+                    
                     if (localStorage.getItem(qId) === 'true') {
-                        currentBlock.classList.add('done');
-                        btn.innerText = '✓ Done';
+                        blockToToggle.classList.add('done');
+                        btn.textContent = '✓ Done';
                     }
                     
                     btn.onclick = () => {
-                        const isDone = currentBlock.classList.toggle('done');
+                        const isDone = blockToToggle.classList.toggle('done');
                         localStorage.setItem(qId, isDone);
-                        btn.innerText = isDone ? '✓ Done' : 'Mark as Done';
+                        btn.textContent = isDone ? '✓ Done' : 'Mark as Done';
                     };
                 }
                 
