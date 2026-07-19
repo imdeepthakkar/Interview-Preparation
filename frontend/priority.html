@@ -1,0 +1,103 @@
+<html><head><meta charset="utf-8"><title>Study Priority Guide</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.8;
+        font-size: 18px;
+        color: #2d3748;
+        background: #f7fafc;
+        margin: 0;
+        padding: 40px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    h1 {
+        font-size: 36px;
+        color: #2b6cb0;
+        border-bottom: 3px solid #ebf8ff;
+        padding-bottom: 15px;
+        margin-top: 40px;
+        text-align: center;
+    }
+    h2 {
+        font-size: 26px;
+        color: #2c5282;
+        margin-top: 50px;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 10px;
+    }
+    p, li { margin-bottom: 16px; }
+    strong { color: #c53030; }
+    .container {
+        background: #ffffff;
+        padding: 50px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+</style>
+</head><body><div class="container"><h1>Karat Interview Preparation - Study Priority Guide</h1>
+<p>Here is the recommended prioritization of the 12 interview questions, ranked from <strong>Hardest to Easiest</strong>, along with the core reasoning for their difficulty. Focus heavily on the &quot;Hard&quot; tier when cramming.</p>
+<h2>🔥 Tier 1: The Hardest (Do these first!)</h2>
+<p>These require complex data structures, strict algorithmic paradigms (like DP or DFS), or heavy edge-case handling.</p>
+<ol>
+<li><strong><code>TollSystemSequence</code></strong><ul>
+<li><strong>Why it&#39;s #1:</strong> It&#39;s an absolute beast of a problem. You have to parse strings, calculate speeds using math, manage objects, and traverse graphs/routes. It tests multiple fundamental skills all at once.</li>
+</ul>
+</li>
+<li><strong><code>DomainClickContinousHistory</code></strong><ul>
+<li><strong>Why it&#39;s #2:</strong> Part 2 requires a <strong>2D Dynamic Programming</strong> table (Longest Common Substring). DP is notoriously difficult to code from scratch under pressure without messing up the matrix indices.</li>
+</ul>
+</li>
+<li><strong><code>ContinuousHistorySequence</code></strong><ul>
+<li><strong>Why it&#39;s #3:</strong> Identical DP logic as Domain Clicks, requiring the same rigorous Longest Common Substring table setup to find overlapping paths.</li>
+</ul>
+</li>
+<li><strong><code>BasicCalculatorSequence</code></strong><ul>
+<li><strong>Why it&#39;s #4:</strong> Writing a calculator requires rigorous use of a <code>Stack</code>. Keeping track of nested parentheses, negative signs, and variable lookups is a massive headache of edge cases.</li>
+</ul>
+</li>
+<li><strong><code>MatrixShapesSequence</code></strong><ul>
+<li><strong>Why it&#39;s #5:</strong> Requires 2D matrix traversal using DFS or BFS. While standard, it&#39;s very easy to hit <code>IndexOutOfBounds</code> exceptions or get caught in an infinite loop if you forget to mark cells as visited.</li>
+</ul>
+</li>
+</ol>
+<h2>🟡 Tier 2: The Mediums (Core Fundamentals)</h2>
+<p>These are standard algorithm questions. Once you know the &quot;trick&quot; (like sorting intervals or using a Set), the code flows naturally.</p>
+<ol start="6">
+<li><strong><code>GridSequence</code></strong><ul>
+<li><strong>Why:</strong> Similar to Matrix Shapes, but usually slightly more straightforward pathfinding. Still requires solid DFS/BFS skills.</li>
+</ul>
+</li>
+<li><strong><code>CalendarSequence</code></strong><ul>
+<li><strong>Why:</strong> The classic &quot;Merge Intervals&quot; problem. You must remember to sort the array by start times first, which is easy to forget in an interview.</li>
+</ul>
+</li>
+<li><strong><code>ParentChildSequence</code></strong><ul>
+<li><strong>Why:</strong> Graph traversal (finding common ancestors). You need to build an adjacency list and use BFS/DFS, but the graph is usually simple (no cycles).</li>
+</ul>
+</li>
+<li><strong><code>BadgeSecuritySequence</code></strong><ul>
+<li><strong>Why:</strong> The logic is straightforward (sliding window), but parsing custom time formats (HHMM) into minutes and sorting arrays inside HashMaps takes a lot of lines of code.</li>
+</ul>
+</li>
+<li><strong><code>WordGameSequence</code></strong></li>
+</ol>
+<ul>
+<li><strong>Why:</strong> It&#39;s mostly about counting characters using a <code>HashMap</code> or <code>int[26]</code> array. Handling the wildcard <code>-</code> character adds a fun but manageable twist.</li>
+</ul>
+<h2>🟢 Tier 3: The Easiest (Warm-ups)</h2>
+<p>These strictly test your ability to use basic Java Collections (<code>HashMap</code>, <code>HashSet</code>, <code>ArrayList</code>).</p>
+<ol start="11">
+<li><strong><code>StudentCoursesSequence</code></strong><ul>
+<li><strong>Why:</strong> It&#39;s purely about finding the intersection between sets. If you know how to use <code>HashSet.retainAll()</code>, you can solve this in a few lines of code.</li>
+</ul>
+</li>
+<li><strong><code>VotingSystemSequence</code></strong><ul>
+<li><strong>Why:</strong> Classic &quot;find the max&quot; problem. Just iterating through a list, keeping a tally in a <code>HashMap</code>, and keeping track of the highest score.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>Study Strategy:</strong> Memorize the <strong>DP matrix setup</strong> for the History sequences, the <strong>Stack rules</strong> for the Calculator, and the <strong>DFS recursive helper</strong> for the Matrix/Grid sequences. If you nail those three, the rest will feel like a breeze!</p>
+</div></body></html>

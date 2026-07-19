@@ -1,0 +1,693 @@
+<html><head><meta charset="utf-8"><title>Rapid Fire Interview Guide</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.8;
+        font-size: 18px;
+        color: #2d3748;
+        background: #f7fafc;
+        margin: 0;
+        padding: 40px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    h1 {
+        font-size: 36px;
+        color: #2b6cb0;
+        border-bottom: 3px solid #ebf8ff;
+        padding-bottom: 15px;
+        margin-top: 40px;
+        text-align: center;
+    }
+    h2 {
+        font-size: 26px;
+        color: #2c5282;
+        margin-top: 50px;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 10px;
+    }
+    p, li { margin-bottom: 16px; }
+    strong { color: #c53030; }
+    .container {
+        background: #ffffff;
+        padding: 50px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+</style>
+</head><body><div class="container"><h1>The Ultimate Rapid-Fire Java Interview Guide</h1>
+<h2>Core Concepts &amp; OOP</h2>
+<p><strong>Q1: What is the difference between JDK, JRE, and JVM?</strong></p>
+<ul>
+<li><strong>JVM (Java Virtual Machine):</strong> Executes compiled Java bytecode.</li>
+<li><strong>JRE (Java Runtime Environment):</strong> JVM + core libraries needed to run apps.</li>
+<li><strong>JDK (Java Development Kit):</strong> JRE + development tools (compiler, debugger).</li>
+</ul>
+<p><strong>Q2: Difference between Overloading and Overriding?</strong></p>
+<ul>
+<li><strong>Overloading:</strong> Same method name, different parameters (Compile-time polymorphism).</li>
+<li><strong>Overriding:</strong> Same method name and parameters in a child class (Runtime polymorphism).</li>
+</ul>
+<p><strong>Q3: Abstract Class vs Interface (Java 8+)?</strong></p>
+<ul>
+<li><strong>Abstract Class:</strong> Can have constructors, instance variables. Class can only extend ONE.</li>
+<li><strong>Interface:</strong> No constructors/instance variables. Supports <code>default</code> methods. Class can implement MULTIPLE.</li>
+</ul>
+<p><strong>Q4: String vs StringBuilder vs StringBuffer?</strong></p>
+<ul>
+<li><strong>String:</strong> Immutable (cannot be changed).</li>
+<li><strong>StringBuilder:</strong> Mutable and not thread-safe (fast).</li>
+<li><strong>StringBuffer:</strong> Mutable and thread-safe (slow due to synchronization).</li>
+</ul>
+<p><strong>Q5: What is Polymorphism?</strong></p>
+<ul>
+<li>The ability of an object to take on many forms. E.g., a parent reference variable can point to a child object.</li>
+</ul>
+<p><strong>Q6: What is Encapsulation?</strong></p>
+<ul>
+<li>Hiding the internal state of an object and requiring all interaction to be performed through an object&#39;s methods (getters/setters).</li>
+</ul>
+<p><strong>Q7: Does Java support multiple inheritance?</strong></p>
+<ul>
+<li>Not through classes (to prevent the Diamond Problem). But it is supported through interfaces.</li>
+</ul>
+<p><strong>Q8: Can we override a static method?</strong></p>
+<ul>
+<li><strong>No.</strong> Static methods belong to the class, not the instance. If you declare a matching static method in a child class, it <em>hides</em> the parent&#39;s method, but doesn&#39;t override it.</li>
+</ul>
+<p><strong>Q9: What is a constructor? Can it be final?</strong></p>
+<ul>
+<li>A special method used to initialize objects. It <strong>cannot</strong> be final, abstract, or static.</li>
+</ul>
+<p><strong>Q10: <code>==</code> vs <code>equals()</code>?</strong></p>
+<ul>
+<li><code>==</code> checks for reference equality (do they point to the exact same object in memory?).</li>
+<li><code>equals()</code> checks for value equality (do they contain the same data logically?).</li>
+</ul>
+<h2>Memory, JVM, &amp; Execution</h2>
+<p><strong>Q11: Does Java pass by value or pass by reference?</strong></p>
+<ul>
+<li><strong>Pass by value strictly.</strong> For objects, it passes the <em>value of the reference</em> (the memory address).</li>
+</ul>
+<p><strong>Q12: Stack vs Heap memory?</strong></p>
+<ul>
+<li><strong>Stack:</strong> Stores local variables and method calls. Fast, small, automatically deallocated.</li>
+<li><strong>Heap:</strong> Stores Objects and JRE classes. Garbage Collected, larger, slower.</li>
+</ul>
+<p><strong>Q13: What is Garbage Collection? Can you force it?</strong></p>
+<ul>
+<li>Automatic memory management that destroys unreachable objects. You cannot force it, only suggest it with <code>System.gc()</code>.</li>
+</ul>
+<p><strong>Q14: What is a ClassLoader?</strong></p>
+<ul>
+<li>A subsystem of the JVM used to load class files into RAM dynamically at runtime.</li>
+</ul>
+<p><strong>Q15: Difference between <code>this</code> and <code>super</code>?</strong></p>
+<ul>
+<li><code>this</code>: Refers to the current class instance.</li>
+<li><code>super</code>: Refers to the immediate parent class instance.</li>
+</ul>
+<p><strong>Q16: What is a memory leak in Java?</strong></p>
+<ul>
+<li>When objects are no longer needed but are still referenced by the application, preventing the Garbage Collector from clearing them.</li>
+</ul>
+<p><strong>Q17: What does the <code>final</code> keyword do?</strong></p>
+<ul>
+<li>Variable: Cannot be reassigned.</li>
+<li>Method: Cannot be overridden.</li>
+<li>Class: Cannot be inherited (extended).</li>
+</ul>
+<p><strong>Q18: OutOfMemoryError vs StackOverflowError?</strong></p>
+<ul>
+<li><strong>OutOfMemoryError:</strong> Heap is full (too many objects).</li>
+<li><strong>StackOverflowError:</strong> Stack is full (usually infinite recursion).</li>
+</ul>
+<h2>Collections Framework</h2>
+<p><strong>Q19: HashMap vs HashTable?</strong></p>
+<ul>
+<li><strong>HashMap:</strong> Not thread-safe, allows 1 null key. Fast.</li>
+<li><strong>HashTable:</strong> Thread-safe, no null keys allowed. Slow.</li>
+</ul>
+<p><strong>Q20: ArrayList vs LinkedList?</strong></p>
+<ul>
+<li><strong>ArrayList:</strong> Dynamic array. Fast random access <code>get()</code>, slow middle insertions.</li>
+<li><strong>LinkedList:</strong> Doubly linked list. Fast insertions/deletions, slow random access.</li>
+</ul>
+<p><strong>Q21: Set vs List?</strong></p>
+<ul>
+<li><strong>Set:</strong> Cannot contain duplicates. No guaranteed order (usually).</li>
+<li><strong>List:</strong> Can contain duplicates. Maintains insertion order.</li>
+</ul>
+<p><strong>Q22: HashMap vs ConcurrentHashMap?</strong></p>
+<ul>
+<li><strong>ConcurrentHashMap</strong> is thread-safe but much faster than HashTable because it only locks a specific bucket/segment during updates, not the whole map.</li>
+</ul>
+<p><strong>Q23: How does a HashMap work internally?</strong></p>
+<ul>
+<li>Uses an array of LinkedLists (or Trees in Java 8+). It hashes the key to find the array index (bucket). If multiple keys hash to the same bucket, they are chained.</li>
+</ul>
+<p><strong>Q24: Fail-fast vs Fail-safe iterators?</strong></p>
+<ul>
+<li><strong>Fail-fast:</strong> Throws <code>ConcurrentModificationException</code> if a collection is modified while iterating (e.g., <code>ArrayList</code>).</li>
+<li><strong>Fail-safe:</strong> Clones the collection, so modifications don&#39;t crash the iterator (e.g., <code>ConcurrentHashMap</code>).</li>
+</ul>
+<p><strong>Q25: Comparable vs Comparator?</strong></p>
+<ul>
+<li><strong>Comparable:</strong> Defines default sorting (<code>compareTo</code>). Only 1 sequence possible.</li>
+<li><strong>Comparator:</strong> Defines custom sorting (<code>compare</code>). Can create multiple sorting sequences.</li>
+</ul>
+<p><strong>Q26: HashSet vs TreeSet?</strong></p>
+<ul>
+<li><strong>HashSet:</strong> Backed by HashMap. Unordered. O(1) time.</li>
+<li><strong>TreeSet:</strong> Backed by TreeMap. Sorted in ascending order. O(log N) time.</li>
+</ul>
+<p><strong>Q27: Iterator vs ListIterator?</strong></p>
+<ul>
+<li><code>Iterator</code> goes in one direction. <code>ListIterator</code> can go forward and backward and can be used to add/modify elements during traversal.</li>
+</ul>
+<p><strong>Q28: Array vs ArrayList?</strong></p>
+<ul>
+<li>Array is fixed-size and can hold primitives. ArrayList is dynamically sized and can only hold Objects (wrapper classes).</li>
+</ul>
+<h2>Multithreading &amp; Concurrency</h2>
+<p><strong>Q29: Runnable vs Thread?</strong></p>
+<ul>
+<li><strong>Runnable:</strong> Better. Allows class to extend another class and separates task from execution.</li>
+<li><strong>Thread:</strong> Class cannot extend anything else.</li>
+</ul>
+<p><strong>Q30: <code>wait()</code> vs <code>sleep()</code>?</strong></p>
+<ul>
+<li><strong>wait():</strong> Called on Object. Releases the lock. Woken by <code>notify()</code>.</li>
+<li><strong>sleep():</strong> Called on Thread. Pauses but <em>keeps</em> the lock.</li>
+</ul>
+<p><strong>Q31: What is the <code>volatile</code> keyword?</strong></p>
+<ul>
+<li>Ensures a variable is read from main memory, not from CPU cache, giving all threads the most up-to-date value.</li>
+</ul>
+<p><strong>Q32: What is synchronization?</strong></p>
+<ul>
+<li>Ensuring that only one thread can execute a critical block of code or access a shared resource at a time.</li>
+</ul>
+<p><strong>Q33: Callable vs Runnable?</strong></p>
+<ul>
+<li><code>Runnable</code>&#39;s <code>run()</code> method returns void and cannot throw checked exceptions.</li>
+<li><code>Callable</code>&#39;s <code>call()</code> method returns a result and can throw checked exceptions.</li>
+</ul>
+<p><strong>Q34: Thread pool vs manual threads?</strong></p>
+<ul>
+<li>Thread pools reuse existing threads, reducing the overhead of creating and destroying threads constantly.</li>
+</ul>
+<p><strong>Q35: What is a daemon thread?</strong></p>
+<ul>
+<li>A low-priority background thread (like Garbage Collector). The JVM exits when only daemon threads remain.</li>
+</ul>
+<p><strong>Q36: Deadlock and how to prevent it?</strong></p>
+<ul>
+<li>Two threads block each other permanently waiting for locks. Prevent by always acquiring multiple locks in the exact same order across all threads.</li>
+</ul>
+<h2>Exceptions &amp; Miscellaneous</h2>
+<p><strong>Q37: Checked vs Unchecked Exceptions?</strong></p>
+<ul>
+<li><strong>Checked:</strong> Checked at compile-time (e.g., <code>IOException</code>). Must be caught or thrown.</li>
+<li><strong>Unchecked:</strong> Runtime errors (e.g., <code>NullPointerException</code>). Extend <code>RuntimeException</code>.</li>
+</ul>
+<p><strong>Q38: <code>throw</code> vs <code>throws</code>?</strong></p>
+<ul>
+<li><code>throw</code>: Used to actually trigger an exception inside a method.</li>
+<li><code>throws</code>: Used in the method signature to declare that the method <em>might</em> throw an exception.</li>
+</ul>
+<p><strong>Q39: Can we have <code>try</code> without <code>catch</code>?</strong></p>
+<ul>
+<li>Yes, but only if it is followed by a <code>finally</code> block or is a &quot;try-with-resources&quot; block.</li>
+</ul>
+<p><strong>Q40: What happens if an exception is thrown in a <code>finally</code> block?</strong></p>
+<ul>
+<li>The original exception might be swallowed/lost if the <code>finally</code> block exception isn&#39;t caught.</li>
+</ul>
+<p><strong>Q41: <code>finally</code> vs <code>finalize()</code>?</strong></p>
+<ul>
+<li><strong>finally:</strong> Block of code that executes after try/catch regardless of outcome.</li>
+<li><strong>finalize():</strong> Deprecated method called before Garbage Collection.</li>
+</ul>
+<h2>Java 8+ Features &amp; Modern Java</h2>
+<p><strong>Q42: What are Lambda Expressions?</strong></p>
+<ul>
+<li>Short blocks of code that take parameters and return a value, providing a clear way to represent a functional interface.</li>
+</ul>
+<p><strong>Q43: What is the Stream API?</strong></p>
+<ul>
+<li>Used to process collections of objects in a functional style (map, filter, reduce).</li>
+</ul>
+<p><strong>Q44: Map vs flatMap in Streams?</strong></p>
+<ul>
+<li><code>map</code>: Transforms each element into another object (1-to-1).</li>
+<li><code>flatMap</code>: Transforms each element into a stream of objects and flattens them into a single stream (1-to-many).</li>
+</ul>
+<p><strong>Q45: <code>Optional</code> class in Java 8?</strong></p>
+<ul>
+<li>A container object used to contain not-null objects, cleanly handling the <code>NullPointerException</code> problem.</li>
+</ul>
+<p><strong>Q46: Default methods in interfaces?</strong></p>
+<ul>
+<li>Allow you to add new methods to interfaces with a default implementation without breaking classes that already implement the interface.</li>
+</ul>
+<p><strong>Q47: What is Dependency Injection?</strong></p>
+<ul>
+<li>Passing dependencies (objects) into a class rather than the class instantiating them itself. Makes testing easier.</li>
+</ul>
+<p><strong>Q48: What are Annotations?</strong></p>
+<ul>
+<li>Metadata added to Java code (e.g., <code>@Override</code>) that can be processed at compile-time or runtime.</li>
+</ul>
+<p><strong>Q49: Transient vs Volatile variables?</strong></p>
+<ul>
+<li><code>transient</code>: The variable will NOT be serialized.</li>
+<li><code>volatile</code>: The variable is visible to all threads (bypasses CPU cache).</li>
+</ul>
+<p><strong>Q50: What is serialization?</strong></p>
+<ul>
+<li>Converting the state of an object into a byte stream so it can be saved to a file or sent over a network.</li>
+</ul>
+<h2>Spring Boot &amp; Spring Framework (50 Questions)</h2>
+<p><strong>Q51: What is Spring Boot?</strong></p>
+<ul>
+<li>An extension of the Spring framework that eliminates boilerplate configurations and provides an opinionated, ready-to-run environment with embedded servers.</li>
+</ul>
+<p><strong>Q52: What does <code>@SpringBootApplication</code> do?</strong></p>
+<ul>
+<li>It is a combination of three annotations: <code>@Configuration</code>, <code>@EnableAutoConfiguration</code>, and <code>@ComponentScan</code>.</li>
+</ul>
+<p><strong>Q53: Spring vs Spring Boot?</strong></p>
+<ul>
+<li>Spring requires heavy XML or Java configuration and an external server. Spring Boot relies on auto-configuration and has embedded Tomcat/Jetty.</li>
+</ul>
+<p><strong>Q54: What is Inversion of Control (IoC)?</strong></p>
+<ul>
+<li>Transferring the control of object creation and dependency management from the programmer to the Spring container.</li>
+</ul>
+<p><strong>Q55: <code>@Controller</code> vs <code>@RestController</code>?</strong></p>
+<ul>
+<li><code>@Controller</code> returns a View (HTML/JSP). <code>@RestController</code> combines <code>@Controller</code> and <code>@ResponseBody</code> to return data (JSON/XML).</li>
+</ul>
+<p><strong>Q56: What is <code>@Autowired</code>?</strong></p>
+<ul>
+<li>Tells Spring to automatically inject a dependency (bean) into a class via field, constructor, or setter.</li>
+</ul>
+<p><strong>Q57: <code>@Component</code> vs <code>@Bean</code>?</strong></p>
+<ul>
+<li><code>@Component</code> is a class-level annotation used during classpath scanning. <code>@Bean</code> is a method-level annotation used inside <code>@Configuration</code> classes to explicitly declare a bean.</li>
+</ul>
+<p><strong>Q58: <code>@Service</code> vs <code>@Repository</code>?</strong></p>
+<ul>
+<li>Both are specializations of <code>@Component</code>. <code>@Service</code> holds business logic. <code>@Repository</code> holds database access logic and translates SQL exceptions into Spring exceptions.</li>
+</ul>
+<p><strong>Q59: What is Spring Data JPA?</strong></p>
+<ul>
+<li>An abstraction over JPA (like Hibernate) that drastically reduces boilerplate code by generating SQL queries based on method names (e.g., <code>findByUsername</code>).</li>
+</ul>
+<p><strong>Q60: <code>@Primary</code> vs <code>@Qualifier</code>?</strong></p>
+<ul>
+<li>When multiple beans of the same type exist, <code>@Primary</code> marks the default bean. <code>@Qualifier(&quot;beanName&quot;)</code> explicitly specifies which one to inject.</li>
+</ul>
+<p><strong>Q61: What is a Spring Profile?</strong></p>
+<ul>
+<li>Allows you to separate application configurations (like database URLs) for different environments (dev, test, prod).</li>
+</ul>
+<p><strong>Q62: <code>application.properties</code> vs <code>application.yml</code>?</strong></p>
+<ul>
+<li>Both hold configurations. <code>.yml</code> uses hierarchical indentation which is easier to read for nested properties, while <code>.properties</code> uses flat key-value pairs.</li>
+</ul>
+<p><strong>Q63: What is Spring Boot Actuator?</strong></p>
+<ul>
+<li>Provides built-in production-ready endpoints (like <code>/health</code>, <code>/metrics</code>, <code>/info</code>) to monitor and manage your application.</li>
+</ul>
+<p><strong>Q64: How do you change the default port (8080)?</strong></p>
+<ul>
+<li>By adding <code>server.port=9090</code> in <code>application.properties</code>.</li>
+</ul>
+<p><strong>Q65: What is AOP (Aspect-Oriented Programming)?</strong></p>
+<ul>
+<li>A programming paradigm that separates cross-cutting concerns (like logging, security, transactions) from the main business logic.</li>
+</ul>
+<p><strong>Q66: Pointcut vs Advice in AOP?</strong></p>
+<ul>
+<li><strong>Pointcut:</strong> The expression that defines <em>where</em> the code should be intercepted (e.g., all methods in a service).</li>
+<li><strong>Advice:</strong> The actual action/code taken <em>when</em> the pointcut is reached (e.g., print log).</li>
+</ul>
+<p><strong>Q67: Filter vs Interceptor?</strong></p>
+<ul>
+<li><strong>Filter:</strong> Part of the Servlet API. Runs before the request reaches the Spring DispatcherServlet.</li>
+<li><strong>Interceptor:</strong> Part of Spring. Runs after DispatcherServlet but before the Controller.</li>
+</ul>
+<p><strong>Q68: What is Spring Security?</strong></p>
+<ul>
+<li>A highly customizable authentication and access-control framework for Spring applications.</li>
+</ul>
+<p><strong>Q69: <code>@Transactional</code>?</strong></p>
+<ul>
+<li>Ensures that a method executes within a database transaction. If an exception occurs, the entire transaction rolls back automatically.</li>
+</ul>
+<p><strong>Q70: Transaction Propagation?</strong></p>
+<ul>
+<li>Defines what happens if a transactional method is called by another transactional method (e.g., <code>REQUIRED</code>, <code>REQUIRES_NEW</code>).</li>
+</ul>
+<p><strong>Q71: Transaction Isolation Levels?</strong></p>
+<ul>
+<li>Determines how transactions isolate from each other (e.g., <code>READ_COMMITTED</code>, <code>SERIALIZABLE</code>) to prevent dirty reads or phantom reads.</li>
+</ul>
+<p><strong>Q72: <code>@ControllerAdvice</code> vs <code>@ExceptionHandler</code>?</strong></p>
+<ul>
+<li><code>@ExceptionHandler</code> handles exceptions within a single controller. <code>@ControllerAdvice</code> acts as a global interceptor to handle exceptions across ALL controllers.</li>
+</ul>
+<p><strong>Q73: What is CommandLineRunner?</strong></p>
+<ul>
+<li>An interface used to execute specific blocks of code exactly once, immediately after the Spring Boot application starts.</li>
+</ul>
+<p><strong>Q74: What is Spring Boot DevTools?</strong></p>
+<ul>
+<li>A module providing fast application restarts, LiveReload, and sensible development-time configuration defaults.</li>
+</ul>
+<p><strong>Q75: How to disable a specific AutoConfiguration?</strong></p>
+<ul>
+<li><code>@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})</code></li>
+</ul>
+<p><strong>Q76: What is Spring Cloud?</strong></p>
+<ul>
+<li>A suite of tools for building distributed systems and microservices (service discovery, routing, circuit breakers).</li>
+</ul>
+<p><strong>Q77: What is Eureka?</strong></p>
+<ul>
+<li>A Service Registry in Spring Cloud where microservices register themselves so they can discover and communicate with each other.</li>
+</ul>
+<p><strong>Q78: What is an API Gateway (Zuul / Spring Cloud Gateway)?</strong></p>
+<ul>
+<li>A single entry point for all clients. It routes requests to appropriate microservices and handles cross-cutting concerns like authentication and rate limiting.</li>
+</ul>
+<p><strong>Q79: Ribbon / Spring Cloud LoadBalancer?</strong></p>
+<ul>
+<li>A client-side load balancer that distributes incoming requests across multiple instances of a microservice.</li>
+</ul>
+<p><strong>Q80: What is a Feign Client?</strong></p>
+<ul>
+<li>A declarative web service client that makes calling other REST APIs as easy as calling a local Java interface.</li>
+</ul>
+<p><strong>Q81: What is a Circuit Breaker (Resilience4j / Hystrix)?</strong></p>
+<ul>
+<li>A pattern that prevents an application from repeatedly trying to execute an operation that is likely to fail, returning a fallback response instead.</li>
+</ul>
+<p><strong>Q82: What is <code>@Cacheable</code>?</strong></p>
+<ul>
+<li>Triggers cache population. If the method is called with the same parameters, the cached result is returned without executing the method.</li>
+</ul>
+<p><strong>Q83: <code>@MockBean</code> vs <code>@Mock</code>?</strong></p>
+<ul>
+<li><code>@Mock</code> is purely Mockito. <code>@MockBean</code> is Spring Boot specific; it adds a mock to the Spring ApplicationContext, replacing any existing bean of the same type.</li>
+</ul>
+<p><strong>Q84: What is Swagger / OpenAPI?</strong></p>
+<ul>
+<li>A tool used to automatically generate interactive API documentation for your RESTful services.</li>
+</ul>
+<p><strong>Q85: What is Spring Batch?</strong></p>
+<ul>
+<li>A framework designed to handle robust processing of large volumes of records (batch processing).</li>
+</ul>
+<p><strong>Q86: <code>@Async</code>?</strong></p>
+<ul>
+<li>Marks a method to be executed in a separate thread asynchronously, returning a <code>CompletableFuture</code>.</li>
+</ul>
+<p><strong>Q87: What is Spring WebFlux?</strong></p>
+<ul>
+<li>Spring&#39;s reactive-stack web framework used to build fully non-blocking, asynchronous, and event-driven applications.</li>
+</ul>
+<p><strong>Q88: Dependency Injection Types?</strong></p>
+<ul>
+<li>Constructor Injection (recommended), Setter Injection, and Field Injection (not recommended).</li>
+</ul>
+<p><strong>Q89: PathVariable vs RequestParam?</strong></p>
+<ul>
+<li><code>@PathVariable</code>: Extracts values from the URI path (<code>/users/{id}</code>).</li>
+<li><code>@RequestParam</code>: Extracts values from query parameters (<code>/users?id=5</code>).</li>
+</ul>
+<p><strong>Q90: How to handle CORS in Spring Boot?</strong></p>
+<ul>
+<li>Using the <code>@CrossOrigin</code> annotation on the controller or configuring a global <code>WebMvcConfigurer</code>.</li>
+</ul>
+<p><strong>Q91: Entity vs DTO?</strong></p>
+<ul>
+<li><strong>Entity:</strong> Maps directly to a database table.</li>
+<li><strong>DTO (Data Transfer Object):</strong> An object used to transfer specifically formatted data between the client and server without exposing the database structure.</li>
+</ul>
+<p><strong>Q92: What is JPA vs Hibernate?</strong></p>
+<ul>
+<li>JPA is just a specification (interface/rules). Hibernate is the actual implementation of that specification.</li>
+</ul>
+<p><strong>Q93: N+1 Problem in Hibernate?</strong></p>
+<ul>
+<li>When you fetch a list of entities (1 query) and then access their lazy-loaded relationships, triggering N additional queries. Solved via <code>JOIN FETCH</code>.</li>
+</ul>
+<p><strong>Q94: Lazy vs Eager Loading?</strong></p>
+<ul>
+<li><strong>Eager:</strong> Loads associated entities immediately.</li>
+<li><strong>Lazy:</strong> Loads associated entities only when they are explicitly accessed for the first time.</li>
+</ul>
+<p><strong>Q95: What is a Bean Scope?</strong></p>
+<ul>
+<li>Defines the lifecycle of a bean. Default is <code>Singleton</code> (one instance per context). Others: <code>Prototype</code> (new instance every time), <code>Request</code>, <code>Session</code>.</li>
+</ul>
+<p><strong>Q96: What is a DispatcherServlet?</strong></p>
+<ul>
+<li>The Front Controller in Spring MVC. It intercepts all incoming HTTP requests and delegates them to the appropriate <code>@Controller</code>.</li>
+</ul>
+<p><strong>Q97: Spring Boot starter dependencies?</strong></p>
+<ul>
+<li>Convenient dependency descriptors (e.g., <code>spring-boot-starter-web</code>) that automatically pull in all necessary libraries for a specific feature.</li>
+</ul>
+<p><strong>Q98: Can you bypass the Spring IoC container?</strong></p>
+<ul>
+<li>Yes, by manually instantiating an object using the <code>new</code> keyword, but then Spring won&#39;t manage its lifecycle or inject its dependencies.</li>
+</ul>
+<p><strong>Q99: What is Jackson?</strong></p>
+<ul>
+<li>The default library used by Spring Boot to serialize and deserialize Java objects into JSON.</li>
+</ul>
+<p><strong>Q100: How to secure passwords in Spring Boot?</strong></p>
+<ul>
+<li>Use <code>BCryptPasswordEncoder</code> to hash passwords before storing them in the database. Never store plain text.</li>
+</ul>
+<h2>System Architecture &amp; System Design (50 Questions)</h2>
+<p><strong>Q101: Monolith vs Microservices?</strong></p>
+<ul>
+<li><strong>Monolith:</strong> Single unified codebase and deployment. Easy to start, hard to scale.</li>
+<li><strong>Microservices:</strong> Distributed suite of independent services. Highly scalable but complex to manage.</li>
+</ul>
+<p><strong>Q102: What is REST?</strong></p>
+<ul>
+<li>Representational State Transfer. An architectural style that uses standard HTTP methods, statelessness, and resource-based URIs.</li>
+</ul>
+<p><strong>Q103: PUT vs POST vs PATCH?</strong></p>
+<ul>
+<li><strong>POST:</strong> Create a new resource.</li>
+<li><strong>PUT:</strong> Completely replace an existing resource. Idempotent.</li>
+<li><strong>PATCH:</strong> Partially update an existing resource.</li>
+</ul>
+<p><strong>Q104: What is SOAP?</strong></p>
+<ul>
+<li>A strict, XML-based messaging protocol. Heavyweight and highly secure, often used in legacy financial systems.</li>
+</ul>
+<p><strong>Q105: What is the CAP Theorem?</strong></p>
+<ul>
+<li>A distributed system can only guarantee two out of three: Consistency, Availability, and Partition Tolerance. (Networks fail, so you must choose between C or A).</li>
+</ul>
+<p><strong>Q106: What is Event-Driven Architecture?</strong></p>
+<ul>
+<li>Services communicate asynchronously by emitting and listening to events/messages rather than direct API calls.</li>
+</ul>
+<p><strong>Q107: What is CQRS?</strong></p>
+<ul>
+<li>Command Query Responsibility Segregation. Separating read operations (Queries) from write operations (Commands) to scale them independently.</li>
+</ul>
+<p><strong>Q108: What is Event Sourcing?</strong></p>
+<ul>
+<li>Instead of storing the current state of an object, you store an append-only log of all events/changes that ever happened to it.</li>
+</ul>
+<p><strong>Q109: Message Queue vs Pub/Sub?</strong></p>
+<ul>
+<li><strong>Message Queue:</strong> One message is consumed by exactly one consumer (Point-to-point).</li>
+<li><strong>Pub/Sub:</strong> One message is broadcasted to multiple independent subscribers.</li>
+</ul>
+<p><strong>Q110: Kafka vs RabbitMQ?</strong></p>
+<ul>
+<li><strong>RabbitMQ:</strong> Traditional message broker, pushes messages to consumers, removes them after consumption.</li>
+<li><strong>Kafka:</strong> Distributed commit log, consumers pull messages, retains messages for a configured time. Built for massive data streaming.</li>
+</ul>
+<p><strong>Q111: What is a Load Balancer?</strong></p>
+<ul>
+<li>A server that distributes incoming network traffic across multiple backend servers to ensure no single server gets overwhelmed.</li>
+</ul>
+<p><strong>Q112: Layer 4 vs Layer 7 Load Balancing?</strong></p>
+<ul>
+<li><strong>Layer 4 (Transport):</strong> Routes traffic based purely on IP address and TCP port. Fast.</li>
+<li><strong>Layer 7 (Application):</strong> Routes traffic based on HTTP headers, URLs, or cookies. Smart.</li>
+</ul>
+<p><strong>Q113: Forward Proxy vs Reverse Proxy?</strong></p>
+<ul>
+<li><strong>Forward Proxy:</strong> Sits in front of a client and hides the client&#39;s identity from the internet (e.g., VPN).</li>
+<li><strong>Reverse Proxy:</strong> Sits in front of a server and hides the server&#39;s identity from clients (e.g., Nginx, API Gateway).</li>
+</ul>
+<p><strong>Q114: What is Caching?</strong></p>
+<ul>
+<li>Storing frequently accessed, expensive-to-compute data in fast memory (RAM) to reduce latency and database load.</li>
+</ul>
+<p><strong>Q115: Redis vs Memcached?</strong></p>
+<ul>
+<li>Both are in-memory data stores. Redis supports complex data types (Lists, Sets), persistence, and replication. Memcached is strictly simple key-value strings.</li>
+</ul>
+<p><strong>Q116: Cache Aside vs Write-Through?</strong></p>
+<ul>
+<li><strong>Cache Aside:</strong> App checks cache; if miss, fetches from DB and updates cache.</li>
+<li><strong>Write-Through:</strong> App writes to cache, and cache immediately writes to DB synchronously.</li>
+</ul>
+<p><strong>Q117: What is a CDN (Content Delivery Network)?</strong></p>
+<ul>
+<li>A geographically distributed network of proxy servers used to cache static assets (images, JS, CSS) closer to users.</li>
+</ul>
+<p><strong>Q118: Database Sharding?</strong></p>
+<ul>
+<li>A form of horizontal scaling where a single large database table is split into multiple smaller tables across different servers based on a shard key.</li>
+</ul>
+<p><strong>Q119: Vertical vs Horizontal Scaling?</strong></p>
+<ul>
+<li><strong>Vertical (Scale Up):</strong> Adding more CPU/RAM to a single machine. Has a hardware limit.</li>
+<li><strong>Horizontal (Scale Out):</strong> Adding more machines to a cluster. Unlimited scaling.</li>
+</ul>
+<p><strong>Q120: SQL vs NoSQL?</strong></p>
+<ul>
+<li><strong>SQL:</strong> Relational, rigid schemas, ACID compliant, scales vertically.</li>
+<li><strong>NoSQL:</strong> Non-relational, flexible schemas, BASE compliant, scales horizontally easily.</li>
+</ul>
+<p><strong>Q121: Types of NoSQL databases?</strong></p>
+<ul>
+<li>Document (MongoDB), Key-Value (Redis), Column-Family (Cassandra), Graph (Neo4j).</li>
+</ul>
+<p><strong>Q122: Eventual vs Strong Consistency?</strong></p>
+<ul>
+<li><strong>Strong:</strong> A read immediately after a write will always return the updated value.</li>
+<li><strong>Eventual:</strong> If no new updates are made, eventually all nodes will return the last updated value (slight delay).</li>
+</ul>
+<p><strong>Q123: What is a Distributed Lock?</strong></p>
+<ul>
+<li>A mechanism (often using Redis or ZooKeeper) to ensure that a shared resource is accessed by only one process across a distributed cluster at a time.</li>
+</ul>
+<p><strong>Q124: What is Rate Limiting?</strong></p>
+<ul>
+<li>Controlling the rate of traffic sent or received by a network to prevent abuse, DoS attacks, or server overload.</li>
+</ul>
+<p><strong>Q125: Token Bucket vs Leaky Bucket?</strong></p>
+<ul>
+<li>Algorithms for rate limiting. Token bucket allows sudden bursts of traffic. Leaky bucket processes traffic at a strictly constant rate.</li>
+</ul>
+<p><strong>Q126: What is Service Discovery?</strong></p>
+<ul>
+<li>A mechanism for microservices to dynamically locate each other on a network without hardcoded IP addresses.</li>
+</ul>
+<p><strong>Q127: SAGA Pattern?</strong></p>
+<ul>
+<li>A pattern used to manage distributed transactions. Instead of a single massive ACID transaction, it uses a sequence of local transactions, triggering compensating actions if a step fails.</li>
+</ul>
+<p><strong>Q128: Choreography vs Orchestration (SAGA)?</strong></p>
+<ul>
+<li><strong>Choreography:</strong> Microservices publish events and react to each other independently (decentralized).</li>
+<li><strong>Orchestration:</strong> A central controller microservice dictates the steps and commands the other services.</li>
+</ul>
+<p><strong>Q129: Bulkhead Pattern?</strong></p>
+<ul>
+<li>Isolating elements of an application into separate pools so that if one fails, the others will continue to function (like watertight compartments in a ship).</li>
+</ul>
+<p><strong>Q130: BFF (Backend for Frontend)?</strong></p>
+<ul>
+<li>Creating a dedicated backend API service tailored specifically for a specific frontend client (e.g., one API for Mobile, one for Web).</li>
+</ul>
+<p><strong>Q131: What is the 12-Factor App methodology?</strong></p>
+<ul>
+<li>A set of best practices for building scalable, cloud-native SaaS applications (e.g., externalizing config, treating backing services as attached resources).</li>
+</ul>
+<p><strong>Q132: What is CI/CD?</strong></p>
+<ul>
+<li>Continuous Integration (automating merging and testing code) and Continuous Deployment (automating the release of code to production).</li>
+</ul>
+<p><strong>Q133: Blue-Green Deployment?</strong></p>
+<ul>
+<li>Having two identical production environments. You deploy the new version to &quot;Green&quot;, test it, and instantly switch the router from &quot;Blue&quot; to &quot;Green&quot; for zero downtime.</li>
+</ul>
+<p><strong>Q134: Canary Release?</strong></p>
+<ul>
+<li>Releasing a new version to a small subset of users (e.g., 5%) to monitor for errors before rolling it out to everyone.</li>
+</ul>
+<p><strong>Q135: What is Docker?</strong></p>
+<ul>
+<li>A platform that packages an application and all its dependencies into a standardized unit called a container.</li>
+</ul>
+<p><strong>Q136: Container vs Virtual Machine?</strong></p>
+<ul>
+<li>A VM virtualizes the entire hardware stack, including a heavy guest OS. A Container virtualizes only the OS level, making it incredibly lightweight and fast.</li>
+</ul>
+<p><strong>Q137: What is Kubernetes?</strong></p>
+<ul>
+<li>An orchestration system for automating deployment, scaling, and management of containerized applications across clusters of hosts.</li>
+</ul>
+<p><strong>Q138: What is Serverless?</strong></p>
+<ul>
+<li>A cloud model where the provider dynamically manages the allocation of servers (e.g., AWS Lambda). You only pay for the exact execution time of your code.</li>
+</ul>
+<p><strong>Q139: OAuth2 vs JWT?</strong></p>
+<ul>
+<li><strong>OAuth2:</strong> A framework/protocol for authorization (granting access).</li>
+<li><strong>JWT (JSON Web Token):</strong> A specific token format that securely encodes claims, often used as the vehicle for OAuth2 tokens.</li>
+</ul>
+<p><strong>Q140: What is HTTPS / TLS?</strong></p>
+<ul>
+<li>HTTP encrypted using Transport Layer Security. It uses asymmetric cryptography (public/private keys) for the handshake, and symmetric cryptography for the data transfer.</li>
+</ul>
+<p><strong>Q141: What is SQL Injection?</strong></p>
+<ul>
+<li>A vulnerability where an attacker manipulates a backend database query by injecting malicious SQL code into input fields. Prevented by Parameterized Queries (PreparedStatement).</li>
+</ul>
+<p><strong>Q142: What is Cross-Site Scripting (XSS)?</strong></p>
+<ul>
+<li>A vulnerability where an attacker injects malicious JavaScript into a webpage viewed by other users. Prevented by sanitizing input and escaping output.</li>
+</ul>
+<p><strong>Q143: What is Cross-Site Request Forgery (CSRF)?</strong></p>
+<ul>
+<li>Tricking an authenticated user&#39;s browser into executing an unwanted action on a trusted site. Prevented by Anti-CSRF tokens.</li>
+</ul>
+<p><strong>Q144: Stateful vs Stateless systems?</strong></p>
+<ul>
+<li><strong>Stateful:</strong> The server remembers client data (session) across multiple requests.</li>
+<li><strong>Stateless:</strong> Every request contains all the information needed to process it. The server stores no session data. Highly scalable.</li>
+</ul>
+<p><strong>Q145: What is Database Indexing?</strong></p>
+<ul>
+<li>A data structure (like B-Tree) that improves the speed of data retrieval operations on a table at the cost of additional storage and slower writes.</li>
+</ul>
+<p><strong>Q146: What is Pagination?</strong></p>
+<ul>
+<li>Retrieving a massive dataset in smaller chunks (pages) using <code>LIMIT</code> and <code>OFFSET</code> to prevent overwhelming memory and network bandwidth.</li>
+</ul>
+<p><strong>Q147: WebSockets vs HTTP?</strong></p>
+<ul>
+<li>HTTP is unidirectional and half-duplex (client asks, server answers). WebSockets provide a persistent, bidirectional, full-duplex connection for real-time data.</li>
+</ul>
+<p><strong>Q148: What is Dark Launching?</strong></p>
+<ul>
+<li>Releasing a feature into production but hiding it from the UI so backend systems are tested with real traffic before users see it.</li>
+</ul>
+<p><strong>Q149: Idempotency?</strong></p>
+<ul>
+<li>Making an API call multiple times produces the exact same result as making it once. Critical for distributed systems to handle network retries safely.</li>
+</ul>
+<p><strong>Q150: What is Long Polling?</strong></p>
+<ul>
+<li>A technique where the client makes an HTTP request, but the server holds the connection open until it has new data to send, simulating real-time push.</li>
+</ul>
+</div></body></html>
