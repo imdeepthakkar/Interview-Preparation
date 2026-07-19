@@ -6,7 +6,7 @@ const priorityContent = fs.readFileSync('../Study_Priority.md', 'utf8').replace(
 const javaContent = fs.readFileSync('../Rapid_Fire_Java.md', 'utf8').replace(/<style>[\s\S]*?<\/style>/, '');
 const springArchContent = fs.readFileSync('../Rapid_Fire_Spring_Arch.md', 'utf8').replace(/<style>[\s\S]*?<\/style>/, '');
 
-const rapidFireContent = javaContent + "\n\n" + springArchContent;
+const rapidFireContent = "# Top 150 Rapid-Fire Interview Questions\n\n" + javaContent.replace("# Top 50 Rapid-Fire Java Interview Questions", "") + "\n\n" + springArchContent;
 
 function generateHtml(title, markdownText) {
     const htmlContent = marked.parse(markdownText);
