@@ -2,10 +2,19 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title GridSequence
+// @Category 2D Grids
+
 public class GridSequence {
 
     private static final int[][] DIRECTIONS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
+        // @Part 1
+    // @Subtitle Find Reachable
+    // @Analogy Pouring water starting at a single cell and seeing every cell it can flow into without hitting walls.
+    // @Trick Classic DFS! Mutate a `visited` boolean matrix. Recursively explore 4 directions (up, down, left, right) if the cell is valid (0).
+    // @Time O(R * C)
+    // @Space O(R * C)
     /*
      * PART 1: Find ALL reachable coordinates (0s) from a start point (DFS).
      * Time: O(R * C), Space: O(R * C)
@@ -41,6 +50,12 @@ public class GridSequence {
         }
     }
 
+        // @Part 2
+    // @Subtitle Shortest Path
+    // @Analogy Finding the absolute quickest way through a maze. Water expands outward one ripple at a time.
+    // @Trick Use BFS with a Queue! Queue stores `[row, col, distance]`. The first time you reach the destination, it is guaranteed to be the shortest path.
+    // @Time O(R * C)
+    // @Space O(R * C)
     /*
      * PART 2: Find the shortest path from Start to End (BFS).
      * Time: O(R * C), Space: O(R * C)
@@ -81,6 +96,12 @@ public class GridSequence {
         return -1;
     }
 
+        // @Part 3
+    // @Subtitle Break 1 Wall
+    // @Analogy You have a bomb that can destroy exactly ONE wall to make a shortcut.
+    // @Trick Add 'state' to BFS. Queue stores `[row, col, dist, wallsBroken]`. Visited array becomes 3D: `visited[r][c][2]`. Increment wallsBroken when hitting a 1.
+    // @Time O(R * C)
+    // @Space O(R * C)
     /*
      * PART 3: Shortest Path with an Obstacle Limit. You are allowed to break
      * exactly 1 wall (1s) during the path.

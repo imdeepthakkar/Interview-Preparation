@@ -2,7 +2,16 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title DomainClickContinousHistory
+// @Category Dynamic Programming
+
 public class DomainClickContinousHistory {
+        // @Part 1
+    // @Subtitle Build User Histories
+    // @Analogy Creating a personalized browsing timeline for each user.
+    // @Trick Iterate through the logs, safely adding domains to a `HashMap<String, List<String>>` keyed by User ID.
+    // @Time O(N)
+    // @Space O(N)
     /*
      * PART 1: Aggregate raw log pairs into a map of UserId -> List of Domains visited.
      * Input: [["user1", "google.com"], ["user1", "yahoo.com"], ["user2", "google.com"]]
@@ -27,6 +36,12 @@ public class DomainClickContinousHistory {
         return userHistories;
     }
 
+        // @Part 2
+    // @Subtitle Longest Common Clicks
+    // @Analogy Finding the longest identical chain of clicks between two users' browsing sessions.
+    // @Trick Classic DP table for Longest Common Substring. Track max length and the `endIndex` so you can return `history1.subList(endIndex - maxLen, endIndex)`.
+    // @Time O(M * N)
+    // @Space O(M * N)
     /*
      * PART 2: Find the longest contiguous sequence of domains shared by two users.
      * Strategy: Dynamic Programming table (Longest Common Substring algorithm).
@@ -71,6 +86,12 @@ public class DomainClickContinousHistory {
         return history1.subList(endIndex - maxLen, endIndex);
     }
 
+        // @Part 3
+    // @Subtitle One-Step Checkout Paths
+    // @Analogy Did the user go from Home to Checkout with exactly ONE intermediate page view?
+    // @Trick Use a sliding window of size 3 across the history list. Check `history.get(i)` against start, and `history.get(i+2)` against end.
+    // @Time O(N)
+    // @Space O(1)
     /*
      * PART 3: Find if a user's path contains a specific start and end domain,
      * with exactly one intermediate click between them.

@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title ContinuousHistorySequence
+// @Category Dynamic Programming
+
 public class ContinuousHistorySequence {
 
+        // @Part 1
+    // @Subtitle Build Histories
+    // @Analogy Just creating a list of websites visited for each user.
+    // @Trick HashMap where Key is User, Value is an ArrayList of domains.
+    // @Time O(N)
+    // @Space O(N)
     /*
      * PART 1: Aggregate raw log pairs into a map of UserId -> List of Domains visited.
      * Time: O(N), Space: O(N)
@@ -17,6 +26,12 @@ public class ContinuousHistorySequence {
         return userHistories;
     }
 
+        // @Part 2
+    // @Subtitle Longest Shared Sequence
+    // @Analogy Finding the exact longest contiguous overlap of browsing history between two people.
+    // @Trick DP Longest Common Substring algorithm. `dp[i][j]` tracks length of matching suffix. If `arr1[i] == arr2[j]`, then `dp[i][j] = dp[i-1][j-1] + 1`.
+    // @Time O(M * N)
+    // @Space O(M * N)
     /*
      * PART 2: Find the longest contiguous sequence of domains shared by two users.
      * Strategy: DP table (Longest Common Substring).
@@ -43,6 +58,12 @@ public class ContinuousHistorySequence {
         return history1.subList(endIndex - maxLen, endIndex);
     }
 
+        // @Part 3
+    // @Subtitle One-Step Checkout
+    // @Analogy Did they go from 'Home' to 'Checkout' with exactly one page in between?
+    // @Trick Simple sliding window of size 3 on the list. `list.get(i) == start` AND `list.get(i+2) == end`.
+    // @Time O(N)
+    // @Space O(1)
     /*
      * PART 3: Find if a user's path contains a specific start and end domain,
      * with exactly one intermediate click.

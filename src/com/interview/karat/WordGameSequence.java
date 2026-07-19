@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title WordGameSequence
+// @Category Counting
+
 public class WordGameSequence {
 
+        // @Part 1
+    // @Subtitle Can Build Word
+    // @Analogy Checking if you have the right Scrabble letters to spell a word.
+    // @Trick Create `int[26]` frequency array. Add counts for available letters. Loop target word, decrement counts. If `< 0`, return false.
+    // @Time O(L + W)
+    // @Space O(1)
     /*
      * PART 1: Determine if a single target word can be built from available letters.
      * Time: O(L + W), Space: O(1)
@@ -24,6 +33,12 @@ public class WordGameSequence {
         return true;
     }
 
+        // @Part 2
+    // @Subtitle Longest Word
+    // @Analogy Given a dictionary, find the longest word you can spell.
+    // @Trick Loop dictionary, check `if (word.length() > longest.length())`. Use Part 1 helper function to check if buildable.
+    // @Time O(N * W)
+    // @Space O(1)
     /*
      * PART 2: Find the longest valid word from a dictionary using available letters.
      * Strategy: Reuses Part 1 as a helper method.
@@ -42,6 +57,12 @@ public class WordGameSequence {
         return longestWord;
     }
 
+        // @Part 3
+    // @Subtitle Wildcards
+    // @Analogy You have blank Scrabble tiles '-' that can act as any letter.
+    // @Trick Keep a separate `int wildcards` counter. If a target letter count is <= 0, decrement wildcards instead. If wildcards < 0, fail.
+    // @Time O(L + W)
+    // @Space O(1)
     /*
      * PART 3: The available letters now contain wildcards ('-').
      * Determine if the word can be built.

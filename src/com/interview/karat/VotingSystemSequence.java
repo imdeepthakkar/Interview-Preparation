@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title VotingSystemSequence
+// @Category Counting
+
 public class VotingSystemSequence {
 
+        // @Part 1
+    // @Subtitle Simple Majority
+    // @Analogy Who got the most votes overall?
+    // @Trick HashMap frequency counting. Track max votes as you loop so you don't need a second pass.
+    // @Time O(N)
+    // @Space O(U)
     /*
      * PART 1: Find the winner of a simple majority vote.
      * Time: O(N), Space: O(U) where U is unique candidates.
@@ -25,6 +34,12 @@ public class VotingSystemSequence {
         return winner;
     }
 
+        // @Part 2
+    // @Subtitle Ranked Choice
+    // @Analogy 1st place gets 3 pts, 2nd gets 2, 3rd gets 1.
+    // @Trick Same map approach. Read ballot index 0, 1, 2 and add 3, 2, 1 points to their respective map values.
+    // @Time O(N)
+    // @Space O(U)
     /*
      * PART 2: Ranked Choice Voting (1st = 3 pts, 2nd = 2 pts, 3rd = 1 pt).
      * Time: O(N), Space: O(U)
@@ -55,6 +70,12 @@ public class VotingSystemSequence {
         return winner;
     }
 
+        // @Part 3
+    // @Subtitle Tie Breakers
+    // @Analogy Tie breaker falls to who has the most 1st place votes, then 2nd place votes.
+    // @Trick Map Candidate -> `int[4] {Total, 1stPlace, 2ndPlace, 3rdPlace}`. Extract entries to a list, write a custom Comparator checking array indices.
+    // @Time O(N + U log U)
+    // @Space O(U)
     /*
      * PART 3: Ranked Voting with Tie-Breakers.
      * Tie-breaker order: Total Score -> Most 1st place -> Most 2nd place.

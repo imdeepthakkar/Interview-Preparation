@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title BadgeSecuritySequence
+// @Category Logs & States
+
 public class BadgeSecuritySequence {
 
+        // @Part 1
+    // @Subtitle Mismatched Badges
+    // @Analogy Finding employees who entered without exiting, or exited without entering.
+    // @Trick Use a HashSet to track who is currently in the building. Add on 'enter', remove on 'exit'. If they 'exit' but aren't in the Set, they sneaked in! Add leftover people to 'entered without exit'.
+    // @Time O(N)
+    // @Space O(N)
     /*
      * PART 1: Find employees who entered without exiting, or exited without entering.
      * Input format: [Name, Action]
@@ -37,6 +46,12 @@ public class BadgeSecuritySequence {
         System.out.println("Entered without exiting: " + enterWithoutExit);
     }
 
+        // @Part 2
+    // @Subtitle Suspicious Access
+    // @Analogy Someone badging in 3+ times in exactly 1 hour. Probably sneaking friends in.
+    // @Trick Group logs into Map<String, List<Integer>>. Sort each employee's timestamps. Use a sliding window of size 3: just check `times.get(i+2) - times.get(i) <= 60`.
+    // @Time O(N log N)
+    // @Space O(N)
     /*
      * PART 2: Find employees who badged in 3 or more times within a 1-hour window.
      * Input format: [Name, Time]
@@ -81,6 +96,12 @@ public class BadgeSecuritySequence {
         return (totalMins2 - totalMins1) <= 60;
     }
 
+        // @Part 3
+    // @Subtitle Employee Room Paths
+    // @Analogy Reconstructing the exact chronological path an employee took through different rooms.
+    // @Trick Map Name -> List of log records. Sort their logs chronologically by Timestamp. Iterate through and extract the Room name whenever the action is 'enter'.
+    // @Time O(N log N)
+    // @Space O(N)
     /*
      * PART 3: Given [Name, Action, Room, Time], return the chronological sequence
      * of rooms entered for each employee.

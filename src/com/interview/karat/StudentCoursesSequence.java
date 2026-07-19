@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title StudentCoursesSequence
+// @Category Graph Theory
+
 public class StudentCoursesSequence {
 
+        // @Part 1
+    // @Subtitle Shared Courses
+    // @Analogy Finding out which classes you have in common with every other student.
+    // @Trick Map Student -> Set of Courses. Use a double for-loop `(i=0 to n, j=i+1 to n)` to compare every pair using `Set.retainAll()`.
+    // @Time O(S^2 * C)
+    // @Space O(S * C)
     /*
      * PART 1: Given [Student, Course] pairs, find the shared courses
      * between every possible pair of students.
@@ -33,6 +42,12 @@ public class StudentCoursesSequence {
         return shared;
     }
 
+        // @Part 2
+    // @Subtitle Middle Course
+    // @Analogy Given a single straight track of prerequisites, find the class right in the middle.
+    // @Trick Find the start node (In-Degree = 0). Traverse the `pre -> course` map until null, storing path in a List. Return `list.get(length/2)`.
+    // @Time O(N)
+    // @Space O(N)
     /*
      * PART 2: Given a list of [Prerequisite, Course] pairs forming a single
      * continuous track, find the exact middle course.
@@ -69,6 +84,12 @@ public class StudentCoursesSequence {
         return path.get((path.size() - 1) / 2);
     }
 
+        // @Part 3
+    // @Subtitle Cycle Detection
+    // @Analogy Checking if a degree plan has an impossible loop (Course A requires B, and B requires A).
+    // @Trick DFS Cycle Detection using 3 colors (states): 0=Unvisited, 1=Visiting (in current path stack), 2=Safe. If you visit a neighbor with state 1, it's a cycle!
+    // @Time O(V + E)
+    // @Space O(V)
     /*
      * PART 3: Determine if a student can graduate. The prerequisite pairs now
      * contain multiple tracks and potential infinite loops (cycles).

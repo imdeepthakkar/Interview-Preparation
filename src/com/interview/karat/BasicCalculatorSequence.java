@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title BasicCalculatorSequence
+// @Category Stack Parsing
+
 public class BasicCalculatorSequence {
 
+        // @Part 1
+    // @Subtitle Simple Evaluation
+    // @Analogy Reading a basic math equation left to right with only +, -, and numbers.
+    // @Trick Keep a running `result`, `currentNum`, and `sign` (1 or -1). On +/-, add `sign * currentNum` to result, reset currentNum, and update sign.
+    // @Time O(N)
+    // @Space O(1)
     /*
      * PART 1: Evaluate a string with positive integers, '+', and '-'.
      * Time: O(N), Space: O(1)
@@ -25,6 +34,12 @@ public class BasicCalculatorSequence {
         return result + (sign * currentNum);
     }
 
+        // @Part 2
+    // @Subtitle Parentheses
+    // @Analogy When you hit a '(', you hit 'Save Game' and put your current score in your pocket. On ')', you pull it out and combine it.
+    // @Trick Use a Stack! On `(`, push `result` and `sign`, then reset them. On `)`, pop the sign (multiply) and pop the result (add).
+    // @Time O(N)
+    // @Space O(N)
     /*
      * PART 2: Evaluate with parentheses using a Stack to hold previous contexts.
      * Time: O(N), Space: O(N)
@@ -54,6 +69,12 @@ public class BasicCalculatorSequence {
         return result + (sign * currentNum);
     }
 
+        // @Part 3
+    // @Subtitle Variables
+    // @Analogy Same as Part 2, but sometimes a number is a variable like 'cost' that you have to look up in a dictionary.
+    // @Trick If `Character.isLetter(c)`, simply convert the single character to a String and look it up in the provided Map to get `currentNum`.
+    // @Time O(N)
+    // @Space O(N)
     /*
      * PART 3: Evaluate an expression containing alphabetic variables.
      * You are provided a Map containing the integer values of the variables.

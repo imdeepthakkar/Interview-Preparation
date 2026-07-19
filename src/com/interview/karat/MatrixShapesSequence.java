@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title MatrixShapesSequence
+// @Category 2D Grids
+
 public class MatrixShapesSequence {
 
+        // @Part 1
+    // @Subtitle Single Rectangle
+    // @Analogy Finding a perfectly rectangular lake in a forest. Once you find the top-left, just walk right and down to find the bounds.
+    // @Trick Scan grid. First 0 is top-left. Use a `while` loop going Right until you hit a 1, then a `while` loop going Down until you hit a 1.
+    // @Time O(R * C)
+    // @Space O(1)
     /*
      * PART 1: Find the top-left and bottom-right coordinates of a SINGLE
      * rectangular shape of 0s in a grid of 1s.
@@ -33,6 +42,12 @@ public class MatrixShapesSequence {
         return new int[]{top, left, bottom, right};
     }
 
+        // @Part 2
+    // @Subtitle Multiple Rectangles
+    // @Analogy Multiple lakes. When you find one, map it, then 'dry it up' (fill with 1s) so you don't discover it again.
+    // @Trick Same as Part 1, but inside the double for-loop. After finding `[top, left, bottom, right]`, loop through those bounds and set `grid[i][j] = 1`.
+    // @Time O(R * C)
+    // @Space O(1)
     /*
      * PART 2: Find the bounding boxes of MULTIPLE isolated rectangular shapes.
      * Strategy: Scan the grid. When a 0 is found, find its box, then mark
@@ -68,6 +83,12 @@ public class MatrixShapesSequence {
         return boxes;
     }
 
+        // @Part 3
+    // @Subtitle Irregular Shapes
+    // @Analogy The lakes aren't perfect rectangles anymore. You have to walk the entire shoreline to find the extreme North/South/East/West bounds.
+    // @Trick DFS to explore all connected 0s. Pass a `bounds` array reference. Constantly update `Math.min` and `Math.max` for Rows and Cols during DFS.
+    // @Time O(R * C)
+    // @Space O(R * C)
     /*
      * PART 3: The shapes are no longer perfect rectangles; they are irregular
      * clusters of 0s. Find the bounding box for each isolated irregular shape.

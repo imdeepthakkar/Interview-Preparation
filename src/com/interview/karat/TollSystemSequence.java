@@ -2,8 +2,17 @@ package com.interview.karat;
 
 import java.util.*;
 
+// @Title TollSystemSequence
+// @Category Logs & States
+
 public class TollSystemSequence {
 
+        // @Part 1
+    // @Subtitle Count Journeys
+    // @Analogy Counting how many times each car got onto the highway.
+    // @Trick Parse the log strings. Ignore everything except action='ENTRY'. Add to a HashMap counter.
+    // @Time O(N)
+    // @Space O(U)
     /*
      * PART 1: Given a list of log strings, return a Map showing the total number
      * of complete journeys each license plate took. A journey starts with "ENTRY".
@@ -31,6 +40,12 @@ public class TollSystemSequence {
         return journeyCounts;
     }
 
+        // @Part 2
+    // @Subtitle Extreme Speeders
+    // @Analogy Catching anyone driving >130km/h between two toll cameras spaced 10km apart.
+    // @Trick Store `lastSeenTime` per plate. On MAINROAD/EXIT, `timeDiff = curr - lastSeen`. Speed is `10.0 / timeDiff * 3600`. If > 130, flag them.
+    // @Time O(N)
+    // @Space O(U)
     /*
      * PART 2: Catch Extreme Speeders. Return a Set of license plates that drove
      * 130 km/h or faster in ANY single 10km segment.
@@ -77,6 +92,12 @@ public class TollSystemSequence {
         return speeders;
     }
 
+        // @Part 3
+    // @Subtitle All Speeders
+    // @Analogy Logs are jumbled! Also catch people driving >120km/h twice in the SAME journey.
+    // @Trick Group logs by plate. Sort chronologically! Reset violation count on 'ENTRY'. Increment on >120. If count == 2 or speed > 130, flag.
+    // @Time O(N log N)
+    // @Space O(N)
     /*
      * PART 3: Catch All Speeders. The logs might be UNSORTED.
      * Unsafe speed is defined as:
