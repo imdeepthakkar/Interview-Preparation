@@ -2,7 +2,7 @@ package com.interview.karat;
 
 import java.util.*;
 
-public class DomainClickContinousHIstory {
+public class DomainClickContinousHistory {
     /*
      * PART 1: Aggregate raw log pairs into a map of UserId -> List of Domains visited.
      * Input: [["user1", "google.com"], ["user1", "yahoo.com"], ["user2", "google.com"]]
@@ -91,5 +91,68 @@ public class DomainClickContinousHIstory {
         }
 
         return false;
+    }
+
+    public static void main(String[] args) {
+        // ---------------------------------------------------------
+        // PART 1 & 2: Raw Click Logs
+        // ---------------------------------------------------------
+        String[][] logs = {
+                {"user1", "google.com"},
+                {"user1", "yahoo.com"},
+                {"user1", "amazon.com"},
+                {"user1", "ebay.com"},
+                {"user2", "bing.com"},
+                {"user2", "yahoo.com"},
+                {"user2", "amazon.com"},
+                {"user2", "ebay.com"},
+                {"user2", "netflix.com"},
+                {"user3", "google.com"},
+                {"user3", "yahoo.com"}
+        };
+
+        System.out.println("--- PART 1: Build User Histories ---");
+        Map<String, List<String>> histories = buildUserHistories(logs);
+
+        for (Map.Entry<String, List<String>> entry : histories.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        // Expected Output:
+        // user1: [google.com, yahoo.com, amazon.com, ebay.com]
+        // user2: [bing.com, yahoo.com, amazon.com, ebay.com, netflix.com]
+        // user3: [google.com, yahoo.com]
+
+
+        System.out.println("\n--- PART 2: Longest Common Continuous History ---");
+        List<String> u1 = histories.get("user1");
+        List<String> u2 = histories.get("user2");
+
+        List<String> common = findLongestCommon(u1, u2);
+        System.out.println("Longest shared between user1 & user2: " + common);
+        // Expected Output:
+        // Longest shared between user1 & user2: [yahoo.com, amazon.com, ebay.com]
+
+
+        // ---------------------------------------------------------
+        // PART 3: One-Step Checkout paths
+        // ---------------------------------------------------------
+        System.out.println("\n--- PART 3: One-Step Checkout ---");
+
+        // Valid: Exactly one step ("catalog") between "home" and "checkout"
+        List<String> path1 = Arrays.asList("home", "catalog", "checkout", "logout");
+
+        // Invalid: Zero steps between them
+        List<String> path2 = Arrays.asList("home", "checkout");
+
+        // Invalid: Two steps between them ("catalog" and "cart")
+        List<String> path3 = Arrays.asList("home", "catalog", "cart", "checkout");
+
+        System.out.println("Path 1 (1 step)  : " + hasOneStepCheckout(path1, "home", "checkout"));
+        System.out.println("Path 2 (0 steps) : " + hasOneStepCheckout(path2, "home", "checkout"));
+        System.out.println("Path 3 (2 steps) : " + hasOneStepCheckout(path3, "home", "checkout"));
+        // Expected Output:
+        // Path 1 (1 step)  : true
+        // Path 2 (0 steps) : false
+        // Path 3 (2 steps) : false
     }
 }
