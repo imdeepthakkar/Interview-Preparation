@@ -16,7 +16,7 @@ public class TollSystemSequence {
 
         for (String log : logs) {
             String[] parts = log.split(" ");
-            // parts[0] = Timestamp, parts[1] = Plate, parts[2] = Location, parts[3] = Type
+            // parts[0] = Timestamp, parts[1] = Plate, parts[2] = Location, parts[3] = Type (action)
 
             if (parts.length == 4) {
                 String plate = parts[1];
@@ -135,12 +135,90 @@ public class TollSystemSequence {
                     if (type.equals("EXIT")) {
                         lastTime = -1;
                         segmentsOver120 = 0; // End of journey
-                    } else {
-                        lastTime = timestamp;
-                    }
+                        } else {
+                            lastTime = timestamp;
+                        }
                 }
             }
         }
         return speeders;
+    }
+
+    public static Map<String, Integer> getStrictCompletedJourneys(String[] logs) {
+        Map<String, Integer> journeyCounts = new HashMap<>();
+
+        // Tracks cars that have officially entered but not yet exited
+        Set<String> onHighway = new HashSet<>();
+
+        if (logs == null || logs.length == 0) return journeyCounts;
+
+        for (String log : logs) {
+            String[] parts = log.split(" ");
+            String plate = parts[1];
+            String action = parts[3];
+
+            if (action.equals("ENTRY")) {
+                // Mark the car as currently on a valid journey
+                onHighway.add(plate);
+            }
+            else if (action.equals("EXIT")) {
+                // Only count as complete IF we actually saw them enter
+                if (onHighway.contains(plate)) {
+                    journeyCounts.put(plate, journeyCounts.getOrDefault(plate, 0) + 1);
+                    // Remove them from the highway so we don't double-count future exits
+                    onHighway.remove(plate);
+                }
+            }
+        }
+
+        return journeyCounts;
+    }
+
+    public static void main(String[] args) {
+        // Unsorted sample logs demonstrating various scenarios
+        String[] logs = {
+                // GHI333: Journey 2 (Safe driver, ~90 km/h)
+                "4000.000 GHI333 210E ENTRY",
+                "4400.000 GHI333 211E MAINROAD",
+                "4800.000 GHI333 212E EXIT",
+
+                // ABC111: Journey 1 (Extreme speeder, 200s for 10km = 180 km/h)
+                "100.000 ABC111 210E ENTRY",
+                "300.000 ABC111 211E MAINROAD",
+                "800.000 ABC111 212E EXIT",
+
+                // DEF222: Journey 1 (Moderate speeder, 290s for 10km = ~124 km/h)
+                // Two violations in the same journey will trigger the Part 3 rule
+                "1000.000 DEF222 210E ENTRY",
+                "1290.000 DEF222 211E MAINROAD",
+                "1580.000 DEF222 212E EXIT",
+
+                // GHI333: Journey 1 (Safe driver, ~90 km/h)
+                "2000.000 GHI333 210E ENTRY",
+                "2400.000 GHI333 211E EXIT"
+        };
+
+        System.out.println("--- PART 1: Count Journeys ---");
+        Map<String, Integer> journeys = countJourneys(logs);
+        for (Map.Entry<String, Integer> entry : journeys.entrySet()) {
+            System.out.println("Plate " + entry.getKey() + " made " + entry.getValue() + " journey(s).");
+        }
+        // Expected: GHI333=2, ABC111=1, DEF222=1
+
+        System.out.println("\n--- PART 2: Extreme Speeders (>= 130 km/h in any single segment) ---");
+        Set<String> extremeSpeeders = catchExtremeSpeeders(logs);
+        System.out.println("Extreme Speeders: " + extremeSpeeders);
+        // Expected: [ABC111] (DEF222 was only going ~124 km/h, so they escape this rule)
+
+        System.out.println("\n--- PART 3: All Speeders (Includes >= 120 km/h in two segments) ---");
+        Set<String> allSpeeders = catchAllSpeeders(logs);
+        System.out.println("All Speeders: " + allSpeeders);
+        // Expected: [ABC111, DEF222] (DEF222 gets caught here for two 124 km/h segments)
+
+        System.out.println("\n--- PART 4: Count Journeys -including entry and exit ---");
+        Map<String, Integer> strictJourneys = getStrictCompletedJourneys(logs);
+        for (Map.Entry<String, Integer> entry : journeys.entrySet()) {
+            System.out.println("Plate " + entry.getKey() + " made " + entry.getValue() + " journey(s).");
+        }
     }
 }
