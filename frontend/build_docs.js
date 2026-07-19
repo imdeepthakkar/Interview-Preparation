@@ -226,7 +226,9 @@ function generateHtml(title, markdownText) {
         allBlocks.forEach(block => container.appendChild(block));
         
         const QUESTIONS_PER_PAGE = 15;
-        const questionBlocks = allBlocks.filter(b => b.className === 'question-block');
+        const questionBlocks = allBlocks.filter(b => b.classList.contains('question-block'));
+        console.log("Found " + questionBlocks.length + " question blocks.");
+        
         const totalPages = Math.ceil(questionBlocks.length / QUESTIONS_PER_PAGE);
         let currentPage = 1;
         
@@ -248,7 +250,7 @@ function generateHtml(title, markdownText) {
             pageQuestions.forEach(q => {
                 const idx = allBlocks.indexOf(q);
                 for(let i = idx - 1; i >= 0; i--) {
-                    if(allBlocks[i].className === 'category-header') {
+                    if(allBlocks[i].classList.contains('category-header')) {
                         visibleH2s.add(allBlocks[i]);
                         break;
                     }
