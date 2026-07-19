@@ -19,7 +19,9 @@ jobs:
       - name: Run Build Script
         run: |
           cd frontend
+          npm install marked
           node build.js
+          node build_docs.js
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
