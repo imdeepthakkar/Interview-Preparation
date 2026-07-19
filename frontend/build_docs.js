@@ -190,7 +190,7 @@ function generateHtml(title, markdownText) {
                 return;
             }
             
-            if (el.tagName === 'P' && el.innerHTML.match(/<strong>Q\\d+/i)) {
+            if (el.tagName === 'P' && el.innerHTML.match(/<strong>Q\d+/i)) {
                 currentBlock = document.createElement('div');
                 currentBlock.className = 'question-block';
                 
@@ -201,13 +201,15 @@ function generateHtml(title, markdownText) {
                 const match = el.textContent.match(/Q(\\d+)/i);
                 if (match) {
                     const qId = 'rapid_fire_' + match[1];
+                    const blockToToggle = currentBlock; // Fix closure bug!
+                    
                     if (localStorage.getItem(qId) === 'true') {
-                        currentBlock.classList.add('done');
+                        blockToToggle.classList.add('done');
                         btn.innerText = '✓ Done';
                     }
                     
                     btn.onclick = () => {
-                        const isDone = currentBlock.classList.toggle('done');
+                        const isDone = blockToToggle.classList.toggle('done');
                         localStorage.setItem(qId, isDone);
                         btn.innerText = isDone ? '✓ Done' : 'Mark as Done';
                     };
