@@ -37,6 +37,75 @@ function generateHtml(title, markdownText) {
         ${htmlContent}
     </div>
     
+    ${title === 'Study Priority List' ? `
+    <style>
+        .priority-block {
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 2px dashed transparent;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.5);
+            list-style-position: inside;
+        }
+        .priority-block:hover {
+            border-color: var(--blue-line);
+        }
+        .priority-block.done {
+            opacity: 0.5;
+            border-color: #2ecc71;
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        .mark-done-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: 2px solid var(--ink);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            padding: 5px 12px;
+            color: var(--ink);
+            transition: 0.2s;
+        }
+        .priority-block.done .mark-done-btn {
+            background: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const listItems = document.querySelectorAll('ol > li');
+        
+        listItems.forEach((li, index) => {
+            li.classList.add('priority-block');
+            
+            const btn = document.createElement('button');
+            btn.className = 'mark-done-btn';
+            btn.innerText = 'Mark as Done';
+            
+            const qId = 'priority_q_' + index;
+            if (localStorage.getItem(qId) === 'true') {
+                li.classList.add('done');
+                btn.innerText = '✓ Done';
+            }
+            
+            btn.onclick = () => {
+                const isDone = li.classList.toggle('done');
+                localStorage.setItem(qId, isDone);
+                btn.innerText = isDone ? '✓ Done' : 'Mark as Done';
+            };
+            
+            li.appendChild(btn);
+        });
+    });
+    </script>
+    ` : ''}
+
     ${title === '150 Rapid-Fire Q&A' ? `
     <style>
         .question-block {
