@@ -25,8 +25,11 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Deploy to Vercel
-        run: vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          mkdir vercel_deploy
+          cp -r frontend vercel_deploy/java-interview
+          cd vercel_deploy
+          vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        working-directory: ./frontend
