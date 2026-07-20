@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ParentChildSequence {
 
-        // @Part 1
+    // @Part 1
     // @Subtitle 0 or 1 Parents
     // @Analogy Finding people who are roots of the family tree (0 parents) or only have a single known parent.
     // @Trick Calculate In-Degree (number of incoming edges). Create a Map of `Node -> Count`. If count is 0 or 1, add to respective lists.
@@ -37,7 +37,7 @@ public class ParentChildSequence {
         System.out.println("One Parent: " + oneParent);
     }
 
-        // @Part 2
+    // @Part 2
     // @Subtitle Common Ancestor
     // @Analogy Do two people share a great-grandparent? Trace both family lines all the way up and see if they intersect.
     // @Trick Build Adjacency List going UP (Child -> List of Parents). Write a recursive helper to get a `Set` of ALL ancestors. Intersect the two sets.
@@ -53,11 +53,11 @@ public class ParentChildSequence {
         Set<Integer> ancestors1 = getAncestors(parentMap, node1);
         Set<Integer> ancestors2 = getAncestors(parentMap, node2);
 
-        ancestors1.retainAll(ancestors2);
-        return !ancestors1.isEmpty();
+            ancestors1.retainAll(ancestors2);
+            return !ancestors1.isEmpty();
     }
 
-        // @Part 3
+    // @Part 3
     // @Subtitle Earliest Ancestor
     // @Analogy Finding the oldest known ancestor in the family tree. Just keep going up until you can't.
     // @Trick Use BFS queue! Start at the node, add its parents to queue, pop, add their parents. The very LAST node popped from the queue is the earliest ancestor.
@@ -103,5 +103,53 @@ public class ParentChildSequence {
             ancestors.addAll(getAncestors(map, p));
         }
         return ancestors;
+    }
+
+    public static void main(String[] args) {
+
+        int[][] pairs = {
+                {1, 3},
+                {2, 3},
+                {3, 6},
+                {5, 6},
+                {5, 7},
+                {4, 5},
+                {4, 8},
+                {8, 9},
+                {11, 8},
+                {10, 1}
+        };
+
+        // Part 1
+        System.out.println("=== Part 1: Zero and One Parents ===");
+        ParentChildSequence.findZeroAndOneParents(pairs);
+
+        // Part 2
+        System.out.println("\n=== Part 2: Common Ancestors ===");
+        System.out.println("Has common ancestor (6, 7): "
+                + ParentChildSequence.hasCommonAncestor(pairs, 6, 7)); // true
+
+        System.out.println("Has common ancestor (3, 8): "
+                + ParentChildSequence.hasCommonAncestor(pairs, 3, 8)); // false
+
+        System.out.println("Has common ancestor (9, 6): "
+                + ParentChildSequence.hasCommonAncestor(pairs, 9, 6)); // true
+
+        System.out.println("Has common ancestor (1, 2): "
+                + ParentChildSequence.hasCommonAncestor(pairs, 1, 2)); // false
+
+            // Part 3
+            System.out.println("\n=== Part 3: Earliest Ancestor ===");
+            System.out.println("Earliest ancestor of 6: "
+                    + ParentChildSequence.findEarliestAncestor(pairs, 6));
+
+            System.out.println("Earliest ancestor of 9: "
+                    + ParentChildSequence.findEarliestAncestor(pairs, 9));
+
+            System.out.println("Earliest ancestor of 3: "
+                    + ParentChildSequence.findEarliestAncestor(pairs, 3));
+
+            System.out.println("Earliest ancestor of 10: "
+                    + ParentChildSequence.findEarliestAncestor(pairs, 10)); // -1
     }
 }

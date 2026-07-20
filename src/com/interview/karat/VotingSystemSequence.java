@@ -114,4 +114,37 @@ public class VotingSystemSequence {
         data[0] += points;
         data[rankIndex] += 1;
     }
+
+
+    public static void main(String[] args) {
+        // --- PART 1: Simple Majority ---
+        System.out.println("--- PART 1: Simple Majority ---");
+        List<String> simpleVotes = Arrays.asList(
+                "Alice", "Bob", "Alice", "Charlie", "Alice", "Bob"
+        );
+        System.out.println("Winner: " + findWinner(simpleVotes));
+        // Expected: Alice (3 votes)
+
+        // --- PART 2: Ranked Choice ---
+        System.out.println("\n--- PART 2: Ranked Choice ---");
+        List<List<String>> rankedBallots = new ArrayList<>();
+        rankedBallots.add(Arrays.asList("Alice", "Bob", "Charlie")); // Alice: 3, Bob: 2, Charlie: 1
+        rankedBallots.add(Arrays.asList("Bob", "Charlie", "Alice")); // Bob: 5, Charlie: 3, Alice: 4
+        rankedBallots.add(Arrays.asList("Bob", "Alice", "Charlie")); // Bob: 8, Alice: 6, Charlie: 4
+
+        System.out.println("Ranked Winner: " + findRankedWinner(rankedBallots));
+        // Expected: Bob (8 points)
+
+        // --- PART 3: Tie Breakers ---
+        System.out.println("\n--- PART 3: Tie Breakers ---");
+        List<List<String>> tieBallots = new ArrayList<>();
+        // Let's force a tie in total points.
+        // Dave gets one 1st place vote (3 pts) and one 3rd place vote (1 pt) = 4 pts.
+        // Eve gets two 2nd place votes (2+2) = 4 pts.
+        tieBallots.add(Arrays.asList("Dave", "Eve", "Frank"));
+        tieBallots.add(Arrays.asList("Frank", "Eve", "Dave"));
+
+        System.out.println("Ultimate Winner (Tie Breaker): " + findUltimateWinner(tieBallots));
+        // Expected: Dave (Wins on 1st place tiebreaker: Dave has 1, Eve has 0)
+    }
 }

@@ -7,7 +7,46 @@ import java.util.*;
 
 public class CalendarSequence {
 
-        // @Part 1
+    public static void main(String[] args) {
+        // --- PART 1: Can Schedule? ---
+        System.out.println("--- PART 1: Can Schedule? ---");
+        // Existing meetings represented as [start, end]
+        int[][] existingMeetings = { {1300, 1500}, {930, 1200}, {830, 845} };
+
+        int[] newMeeting1 = {845, 900}; // Fits perfectly in the gap
+        int[] newMeeting2 = {1430, 1450}; // Overlaps with 1300-1500
+
+        System.out.println("Can schedule [845, 900]? " + canSchedule(existingMeetings, newMeeting1));
+        // Expected: true
+        System.out.println("Can schedule [1430, 1450]? " + canSchedule(existingMeetings, newMeeting2));
+        // Expected: false
+
+        // --- PART 2: Merge Overlaps ---
+        System.out.println("\n--- PART 2: Merge Overlaps ---");
+        // A messy list of meetings out of order and overlapping
+        int[][] rawMeetings = { {15, 18}, {1, 3}, {2, 6}, {8, 10}, {17, 20} };
+
+        int[][] merged = mergeMeetings(rawMeetings);
+        System.out.println("Merged Meetings: " + Arrays.deepToString(merged));
+        // Expected: [[1, 6], [8, 10], [15, 20]]
+
+        // --- PART 3: Find Free Time ---
+        System.out.println("\n--- PART 3: Find Free Time ---");
+        // We will use the merged output from Part 2 to find our gaps
+        int dayStart = 0; // The start of the day (e.g., 0 hours)
+        int dayEnd = 24;  // The end of the day (e.g., 24 hours)
+
+        List<int[]> freeTime = findFreeTime(merged, dayStart, dayEnd);
+
+        System.out.print("Free Time Blocks: ");
+        for (int[] block : freeTime) {
+            System.out.print(Arrays.toString(block) + " ");
+        }
+        System.out.println();
+        // Expected: [0, 1] [6, 8] [10, 15] [20, 24]
+    }
+
+    // @Part 1
     // @Subtitle Can Schedule?
     // @Analogy Checking if a new meeting overlaps with any existing meetings.
     // @Trick Two intervals overlap if `newStart < meeting.end AND newEnd > meeting.start`.

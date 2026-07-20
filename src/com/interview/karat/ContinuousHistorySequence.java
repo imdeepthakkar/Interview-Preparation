@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ContinuousHistorySequence {
 
-        // @Part 1
+    // @Part 1
     // @Subtitle Build Histories
     // @Analogy Just creating a list of websites visited for each user.
     // @Trick HashMap where Key is User, Value is an ArrayList of domains.
@@ -26,7 +26,7 @@ public class ContinuousHistorySequence {
         return userHistories;
     }
 
-        // @Part 2
+    // @Part 2
     // @Subtitle Longest Shared Sequence
     // @Analogy Finding the exact longest contiguous overlap of browsing history between two people.
     // @Trick DP Longest Common Substring algorithm. `dp[i][j]` tracks length of matching suffix. If `arr1[i] == arr2[j]`, then `dp[i][j] = dp[i-1][j-1] + 1`.
